@@ -1,0 +1,184 @@
+Лабораторная работа №1
+
+Романов Егор 3342
+
+
+uname@cpname:~$ echo "Дата:; date (запись текущей даты) 
+Дата:
+25 фев 2025 19:40:13 MSK
+
+uname@cpname:~$ whoami (имя пользователя)
+uname
+
+uname@cpname:~$ tty (имя терминала)
+/dev/pts/0
+
+uname@cpname:~$ uname (название операционной системы)
+Linux
+
+uname@cpname:~$ who (вывод информации о пользователях в системе)
+uname    seat0        2025-02-25 19:32 (login screen)
+uname    tty2         2025-02-25 19:32 (tty2)
+
+uname@cpname:~$ (date && ls) (вывод всех файлов в каталоге)
+Вт 25 фев 2025 19:50:59 MSK
+mylog.log
+snap
+Видео
+Документы
+Загрузки
+Изображения
+Музыка
+Общедоступные
+Рабочий стол
+Шаблоны
+
+uname@cpname:~$ (date && ls -l) (вывод подробной информации о файлах в каталоге)
+Вт 25 фев 2025 19:51:40 MSK
+итого 40
+-rw-rw-r-- 1 uname uname  921 фев 25 19:51 mylog.log
+drwx------ 7 uname uname 4096 фев 25 15:00 snap
+drwxr-xr-x 2 uname uname 4096 фев 25 10:57 Видео
+drwxr-xr-x 2 uname uname 4096 фев 25 10:57 Документы
+drwxr-xr-x 2 uname uname 4096 фев 25 14:21 Загрузки
+drwxr-xr-x 2 uname uname 4096 фев 25 10:57 Изображения
+drwxr-xr-x 2 uname uname 4096 фев 25 10:57 Музыка
+drwxr-xr-x 2 uname uname 4096 фев 25 10:57 Общедоступные
+drwxr-xr-x 2 uname uname 4096 фев 25 10:57 Рабочий стол
+drwxr-xr-x 2 uname uname 4096 фев 25 10:57 Шаблоны
+
+uname@cpname:~$ (date && lscpu | head -n 15) (получение информации о процессоре)
+Вт 25 фев 2025 19:54:32 MSK
+Архитектура:                          x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Address sizes:                        48 bits physical, 48 bits virtual
+Порядок байт:                         Little Endian
+CPU(s):                               4
+On-line CPU(s) list:                  0-3
+ID прроизводителя:                    AuthenticAMD
+Имя модели:                           AMD Ryzen 5 4500U with Radeon Graphics
+Семейство ЦПУ:                        23
+Модель:                               96
+Потоков на ядро:                      1
+Ядер на сокет:                        4
+Сокетов:                              1
+Степпинг:                             1
+BogoMIPS:                             4741,08
+
+
+uname@cpname:~$ (date && lshw | head -n 15) (вывод информации об аппаратных компонентах системы (только верхние 15 строк, т.к. полный вывод слишком объёмный)) 
+Вт 25 фев 2025 19:56:19 MSK
+cpname
+    описание: Computer
+    разрядность: 64 bits
+    возможности: smp vsyscall32
+  *-core
+       описание: Motherboard
+       физический ID: 0
+     *-memory
+          описание: Системная память
+          физический ID: 0
+          размер: 3200MiB
+     *-cpu
+          продукт: AMD Ryzen 5 4500U with Radeon Graphics
+          производитель: Advanced Micro Devices [AMD]
+          физический ID: 1
+
+
+uname@cpname:~$ (date && uname -a) (вывод информации о системе)
+Вт 25 фев 2025 19:59:39 MSK
+Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20 22:48:29 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+
+
+Выполнение работы
+Задание 1
+
+    Обычный файл (-)
+        uname@cpname:~$ (sudo date && ls -lR 2>/dev/null | grep "^-" | head -n 1) (получение имени файла)
+            Вт 25 фев 2025 20:05:08 MSK
+            -rw-rw-r-- 1 uname uname 3793 фев 25 20:05 mylog.log
+
+        uname@cpname:~$ (date && sudo find / -name "mylog.log" 2>/dev/null | head -n 1 ) (получение полного пути)
+            Вт 25 фев 2025 20:11:19 MSK
+            /home/uname/mylog.log
+
+    Файл блочного устройства (b)
+        uname@cpname:/$ (date && sudo ls -lR 2>/dev/null  | grep '^b' | head -n 1)
+            Вт 25 фев 2025 20:33:51 MSK
+            br--------  1 root  root     11,   1 фев 25 19:55 cdrom1
+
+        uname@cpname:/$ (date && sudo find / -name "cdrom1" 2>/dev/null)                        
+            Вт 25 фев 2025 20:35:40 MSK
+            /dev/cdrom1
+
+    Файл символьного устройства (c)
+        uname@cpname:/$ (date && sudo ls -lR 2>/dev/null  | grep '^c' | head -n 1)
+            Вт 25 фев 2025 20:37:17 MSK
+            crw-r--r--  1 root  root     10, 235 фев 25 19:30 autofs
+
+        uname@cpname:/$ (date && sudo find / -name "autofs" 2>/dev/null | head -n 1)
+            Вт 25 фев 2025 20:38:26 MSK
+            /usr/lib/modules/6.11.0-17-generic/kernel/fs/autofs
+
+    Директория (d)
+        name@cpname:/$ (date && sudo ls -lR 2>/dev/null  | grep '^d' | head -n 1)
+            Вт 25 фев 2025 20:39:33 MSK
+            drwxr-xr-x   2 root root       4096 фев 26  2024 bin.usr-is-merged
+
+        uname@cpname:/$ (date && sudo find / -name "bin.usr-is-merged" 2>/dev/null | head -n 1) 
+            Вт 25 фев 2025 20:41:11 MSK
+            /bin.usr-is-merged
+
+
+    Символьная ссылка (l)
+        uname@cpname:/$ (date && sudo ls -lR 2>/dev/null  | grep '^l' | head -n 1)
+            Вт 25 фев 2025 20:42:33 MSK
+            lrwxrwxrwx   1 root root          7 апр 22  2024 bin -> usr/bin
+
+        uname@cpname:/$ (date && sudo find / -name "bin" 2>/dev/null)
+            Вт 25 фев 2025 20:43:15 MSK
+            /bin
+
+    Именованный канал (FIFO)
+        uname@cpname:/$ (date && sudo ls -lR 2>/dev/null  | grep '^p' | head -n 1)
+            Вт 25 фев 2025 20:47:43 MSK
+            prw-------  1 root              root      0 фев 25 19:30 initctl
+            
+        uname@cpname:/$ (date && sudo find / -name "initctl" 2>/dev/null)
+            Вт 25 фев 2025 20:48:09 MSK
+            /run/initctl
+
+    Сокет (s)
+        uname@cpname:/$ (date && sudo ls -lR 2>/dev/null  | grep '^s' | head -n 1)
+            Вт 25 фев 2025 20:49:56 MSK
+            srw-rw-rw-  1 root              root      0 фев 25 19:30 snapd-snap.socket
+
+        uname@cpname:/$ (date && sudo find / -name "snapd-snap.socket" 2>/dev/null)
+            Вт 25 фев 2025 20:50:35 MSK
+            /run/snapd-snap.socket
+
+    Напишем скрипт для выполнения этого задания 
+    
+    uname@cpname:~$ (date && touch res.txt) (создание файла, где будет сохранён результат)
+    Вт 25 фев 2025 21:00:45 MSK
+
+    uname@cpname:~$ (date && cat res.txt) (содержимое файла до запуска скрипта)
+    Вт 25 фев 2025 21:01:41 MSK
+
+    uname@cpname:~$ (date && ./first.sh res.txt) (заупск скрипта)
+    Вт 25 фев 2025 21:02:37 MSK
+    Поиск...
+    Записано в res.txt
+
+    uname@cpname:~$ (date && cat res.txt) (содержимое после выполнения скрипта)
+    Вт 25 фев 2025 21:03:21 MSK
+    lrwxrwxrwx /usr/bin
+    drwxr-xr-x /bin.usr-is-merged
+    -rw------- /swap.img
+    crw-r--r-- /dev/autofs
+    br-------- /dev/cdrom1
+    prw------- /run/initctl
+    srw-rw-rw- /run/snapd-snap.socket
+
+Задание 2
+    
