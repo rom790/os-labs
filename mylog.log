@@ -181,4 +181,53 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
     srw-rw-rw- /run/snapd-snap.socket
 
 Задание 2
+    uname@cpname:~$ (date && touch linkfile.txt) (создадим файл, на который будут делаться ссылки)
+    Вт 25 фев 2025 21:09:03 MSK
+
+    uname@cpname:~$ (date && mkdir linkdir) (создадим директорию, из которой будет одна из ссылок)
+    Вт 25 фев 2025 21:09:46 MSK
+
+    uname@cpname:~$ (date && ln linkfile.txt flink) (создали первую ссылку)
+    Вт 25 фев 2025 21:11:54 MSK
+
+    uname@cpname:~$ (date && mkdir linkdir)
+    Вт 25 фев 2025 21:15:18 MSK
+
+    uname@cpname:~$ (date && cd linkdir)
+    Вт 25 фев 2025 21:15:55 MSK
+
+    uname@cpname:~/linkdir$ (date && ln ../linkfile.txt slink) (создали вторую ссылку)
+    Вт 25 фев 2025 21:16:47 MSK
     
+    uname@cpname:~$ (date && ls -li linkfile.txt | awk '{print $1}') (получили inode файла linkfile.txt)
+    Вт 25 фев 2025 21:27:05 MSK
+    919493
+
+    uname@cpname:~$ (date && ls -lRi | grep "919493") (получили все файл с таким же inode: сам файл и жесткие ссылки на него)
+    Вт 25 фев 2025 21:28:32 MSK
+    919493 -rw-rw-r-- 3 uname uname    0 фев 25 21:09 flink
+    919493 -rw-rw-r-- 3 uname uname    0 фев 25 21:09 linkfile.txt
+    919493 -rw-rw-r-- 3 uname uname  0 фев 25 21:09 slink
+    Полученные файлы это как раз те ссылки, которые были созданы командами выше
+
+    Напишем скрипт для выполнения этого задания
+
+    uname@cpname:~$ (date && touch sres.txt) (создадим файл, куда будет записан результат) 
+    Вт 25 фев 2025 22:11:01 MSK
+
+    uname@cpname:~$ (date && cat sres.txt) (состояние файл до использования скрипта)
+    Вт 25 фев 2025 22:12:01 MSK
+
+    uname@cpname:~$ (date && ./second.sh linkfile.txt sres.txt)
+    Вт 25 фев 2025 22:12:54 MSK
+    Файл найден. Результаты сохранены в sres.txt.
+
+    uname@cpname:~$ (date && cat sres.txt) (состояние файла после использования скрипта)
+    Вт 25 фев 2025 22:14:59 MSK
+    919493 -rw-rw-r-- 3 uname uname     0 фев 25 21:48 flink
+    919493 -rw-rw-r-- 3 uname uname     0 фев 25 21:48 linkfile.txt
+    919493 -rw-rw-r-- 3 uname uname  0 фев 25 21:48 slink
+
+    Скрипт записал в резльтат все ссылки на выбранный файл
+
+
