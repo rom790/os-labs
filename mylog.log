@@ -2,7 +2,6 @@
 
 Романов Егор 3342
 
-
 uname@cpname:~$ echo "Дата:; date (запись текущей даты) 
 Дата:
 25 фев 2025 19:40:13 MSK
@@ -229,5 +228,110 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
     919493 -rw-rw-r-- 3 uname uname  0 фев 25 21:48 slink
 
     Скрипт записал в резльтат все ссылки на выбранный файл
+
+
+Задание 3
+    Рассмотрим способы создания символьных ссылок
+
+    1) Создание при помощи ln с флагом -s
+        uname@cpname:~$ (date && ln -s linkfile.txt newsymlink)
+            Вт 25 фев 2025 22:29:40 MSK
+
+        uname@cpname:~$ (date && ls -l newsymlink) (была создана символическая ссылка, это можно понять по типу файла (l))
+            Вт 25 фев 2025 22:30:30 MSK
+            lrwxrwxrwx 1 uname uname 12 фев 25 22:29 newsymlink -> linkfile.txt
+            
+    2) Создание при помощи link
+    
+        uname@cpname:~$ (date && cd linkdir) (переход в папку, гед будет созданаа ссылка)             
+            Ср 26 фев 2025 10:26:36 MSK
+
+        uname@cpname:~/linkdir$ (date && link ../linkfile.txt hard_link) (создание ссылки)
+            Ср 26 фев 2025 10:29:05 MSK
+
+        
+        uname@cpname:~/linkdir$ (date && ls -li) (ссылка появилась в директории)
+            Ср 26 фев 2025 10:30:46 MSK
+            итого 0
+            919493 -rw-rw-r-- 4 uname uname  0 фев 25 21:48 hard_link
+            919493 -rw-rw-r-- 4 uname uname  0 фев 25 21:48 slink
+
+        uname@cpname:~/linkdir$ (date && ls -li ../linkfile.txt | awk '{print $1}') (видно, что hard_link имеет тот же inode, что и linkfile.txt)
+            Ср 26 фев 2025 10:31:32 MSK
+            919493
+
+    3) Создание при помощи cp с флагом -s
+
+        uname@cpname:~/linkdir$ (date && cp -s ../linkfile.txt othersymlink) (создание символической ссылки)
+            Ср 26 фев 2025 10:34:43 MSK
+
+        uname@cpname:~/linkdir$ (date && ls -l) (ссылка появилась в директории и ссылка указывает на linkfile)
+            Ср 26 фев 2025 10:35:41 MSK
+            итого 0
+            -rw-rw-r-- 4 uname uname  0 фев 25 21:48 hard_link
+            lrwxrwxrwx 1 uname uname 15 фев 26 10:34 othersymlink -> ../linkfile.txt
+            -rw-rw-r-- 4 uname uname  0 фев 25 21:48 slink
+
+    Напишем скрипт для поиска всех сивольных ссылок
+        uname@cpname:~$ (date && touch thres.txt) (создание файл, где будет сохранён результат)
+            Ср 26 фев 2025 17:55:50 MSK 
+
+        uname@cpname:~$ (date && cat thres.txt) (состояние до выполнения скрипта)
+            Ср 26 фев 2025 17:56:36 MSK
+
+        uname@cpname:~$ (date && ./third.sh linkfile.txt thres.txt) (выполнение скрипта)
+            Ср 26 фев 2025 17:57:29 MSK
+            Результаты сохранены в thres.txt
+            Найдено символьных ссылок: 2
+        первый аргумент - файл, для которого необходимо найти количество ссылок, второй - файл, куда будет записан результат
+
+        uname@cpname:~$ (date && cat thres.txt) (содержимое файла после использования скрипта)
+            Ср 26 фев 2025 17:59:14 MSK
+            /home/uname/newsymlink
+            /home/uname/linkdir/othersymlink
+            Всего: 2
+
+Задание 4
+    Напишем скрипт для для получения всех символьных ссылок на заданный файл разными способами
+
+    uname@cpname:~$ (date && touch fourthres.txt) (создание файла для записи результата)
+        Ср 26 фев 2025 18:14:22 MSK
+            
+    uname@cpname:~$ (date && cat fourthres.txt) (содержимое файла до использования скрипта)
+        Ср 26 фев 2025 18:14:46 MSK
+
+    uname@cpname:~$ (date && ./fourth.sh linkfile.txt > fourthres.txt) (использование скрипта)
+        Ср 26 фев 2025 18:18:21 MSK
+
+    uname@cpname:~$ (date && cat fourthres.txt) (состояние файла после использования скрипта) 
+        Ср 26 фев 2025 18:20:04 MSK
+        Поиск с использованием find и stat:
+        '/home/uname/newsymlink' -> 'linkfile.txt'
+        '/home/uname/linkdir/othersymlink' -> '../linkfile.txt'
+
+
+        Поиск с использованием find и -lname:
+        /home/uname/newsymlink
+        /home/uname/linkdir/othersymlink
+
+
+        Поиск с использованием readlink в цикле:
+        /home/uname/newsymlink -> linkfile.txt
+        /home/uname/linkdir/othersymlink -> ../linkfile.txt
+
+
+        Поиск с использованием ls и grep:
+        lrwxrwxrwx  1 uname uname    12 фев 25 22:29 newsymlink -> linkfile.txt
+        lrwxrwxrwx  1 uname uname   15 фев 26 10:34 othersymlink -> ../linkfile.txt
+
+
+        Поиск с использованием find и realpath:
+        /home/uname/newsymlink
+        /home/uname/linkdir/othersymlink
+
+
+        Поиск с использованием find и readlink -f:
+        /home/uname/newsymlink
+        /home/uname/linkdir/othersymlink
 
 
