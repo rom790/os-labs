@@ -2,6 +2,7 @@
 
 Романов Егор 3342
 
+
 uname@cpname:~$ echo "Дата:; date (запись текущей даты) 
 Дата:
 25 фев 2025 19:40:13 MSK
@@ -335,3 +336,151 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
         /home/uname/linkdir/othersymlink
 
 
+Задание 5
+    uname@cpname:~$ (date && mkdir finddir) 
+        Ср 26 фев 2025 18:34:40 MSK
+
+    uname@cpname:~/finddir$ (date && touch a.txt b.txt)
+        Ср 26 фев 2025 18:35:56 MSK
+
+    find применяется для поиска файлов и директорий, используя различные флаги можно искать файлы разного типа и по разным характеристикам
+
+    Поиск по имени (-name)
+        uname@cpname:~$ (date && sudo find / -name python3 | head -n 10) 
+            Ср 26 фев 2025 18:46:20 MSK
+            /snap/core22/1748/usr/bin/python3
+            /snap/core22/1748/usr/lib/python3
+            /snap/core22/1748/usr/share/bash-completion/completions/python3
+            /snap/core22/1748/usr/share/doc/python3
+            /snap/core22/1748/usr/share/lintian/overrides/python3
+            /snap/core22/1748/usr/share/python3
+            /snap/gnome-42-2204/202/usr/lib/python3
+            /snap/gnome-42-2204/202/usr/share/python3
+            /snap/core20/2496/usr/bin/python3
+            /snap/core20/2496/usr/lib/python3
+
+    Поиск по типу файла (-type)
+        uname@cpname:~$ date;  sudo find . -type l -exec ls -l {} \; 2>/dev/null | head -n 5
+            Ср 26 фев 2025 18:57:30 MSK
+            lrwxrwxrwx 1 uname uname 4 фев 25 14:21 ./snap/snap-store/current -> 1248
+            lrwxrwxrwx 1 uname uname 76 фев 25 19:42 ./snap/snap-store/1248/.local/share/snap-store/snap-store.log -> /home/uname/snap/snap-store/1248/.local/share/snap-store/snap-store.log.3838
+            lrwxrwxrwx 1 uname uname 37 фев 25 19:42 ./snap/snap-store/1248/.local/share/themes -> /snap/snap-store/1248/data-dir/themes
+            lrwxrwxrwx 1 uname uname 37 фев 25 19:42 ./snap/snap-store/1248/.themes -> /snap/snap-store/1248/data-dir/themes
+            lrwxrwxrwx 1 uname uname 46 фев 25 14:21 ./snap/snap-store/1248/.config/gtk-2.0/gtkfilechooser.ini -> /home/uname/.config/gtk-2.0/gtkfilechooser.ini
+
+        Из вывода видно, что все полученные файлы действительно являются файлами типа символьных ссылок
+
+    Поиск по правам доступа (-perm)
+        uname@cpname:~$ date; sudo find . -perm 644 -exec ls -l {} \; 2>/dev/null | head -n 5  
+            Ср 26 фев 2025 19:03:09 MSK
+            -rw-r--r-- 1 uname uname 94208 фев 26 17:28 ./.local/share/evolution/addressbook/system/contacts.db
+            -rw-r--r-- 1 uname uname 32768 фев 26 17:28 ./.local/share/nautilus/tags/meta.db-shm
+            -rw-r--r-- 1 uname uname 0 фев 26 17:28 ./.local/share/nautilus/tags/meta.db-wal
+            -rw-r--r-- 1 uname uname 303104 фев 25 10:57 ./.local/share/nautilus/tags/meta.db
+            -rw-r--r-- 1 root root 593 фев 25 15:08 ./.local/share/Trash/files/clean.log
+
+        Команда вывела файлы доступные для чтения и записи для владельца и только чтения для остальных групп пользователей
+
+        uname@cpname:~$ date; sudo find . -perm 777 -exec ls -l {} \; 2>/dev/null | head -n 5
+            Ср 26 фев 2025 19:05:13 MSK
+            lrwxrwxrwx 1 uname uname 4 фев 25 14:21 ./snap/snap-store/current -> 1248
+            lrwxrwxrwx 1 uname uname 76 фев 25 19:42 ./snap/snap-store/1248/.local/share/snap-store/snap-store.log -> /home/uname/snap/snap-store/1248/.local/share/snap-store/snap-store.log.3838
+            lrwxrwxrwx 1 uname uname 37 фев 25 19:42 ./snap/snap-store/1248/.local/share/themes -> /snap/snap-store/1248/data-dir/themes
+            lrwxrwxrwx 1 uname uname 37 фев 25 19:42 ./snap/snap-store/1248/.themes -> /snap/snap-store/1248/data-dir/themes
+            lrwxrwxrwx 1 uname uname 46 фев 25 14:21 ./snap/snap-store/1248/.config/gtk-2.0/gtkfilechooser.ini -> /home/uname/.config/gtk-2.0/gtkfilechooser.ini
+
+        Команда вывела файлы, доступные для чтение, записи и исполнения для всех групп пользователей
+
+    Поиск по размеру (-size)
+        uname@cpname:~$ date; sudo find / -size +100M 2>/dev/null| head -n 5  
+            Ср 26 фев 2025 19:07:50 MSK
+            /swap.img
+            /home/uname/Загрузки/code_1.97.2-1739406807_amd64.deb
+            /snap/gnome-42-2204/202/usr/lib/x86_64-linux-gnu/libLLVM-15.so.1
+            /snap/firefox/5751/usr/lib/firefox/libxul.so
+            /snap/code/184/usr/share/code/code
+        
+        Команда вывела файлы, размер которых превышает 100 мегабайт
+    
+    Поиск по времени (-mtime)
+        uname@cpname:~$ date; sudo find . -mtime -10 -type f -exec ls -l {} \;  2>/dev/null | head -n 5 
+            Ср 26 фев 2025 19:11:43 MSK
+            -rw------- 1 uname uname 1200 фев 25 14:15 ./.gnupg/trustdb.gpg
+            -rw------- 1 uname uname 32 фев 25 14:15 ./.gnupg/pubring.kbx
+            -rw-r--r-- 1 uname uname 94208 фев 26 17:28 ./.local/share/evolution/addressbook/system/contacts.db
+            -rw-rw-r-- 1 uname uname 173 фев 25 10:57 ./.local/share/evolution/tasks/system/tasks.ics
+            -rw-rw-r-- 1 uname uname 173 фев 25 10:57 ./.local/share/evolution/calendar/system/calendar.ics
+
+        Команда вывела файлы, изменённые за последние 10 дней, это видно, благодаря использованию ls -l
+    
+    Получим расширенную информацию для файла каждого типа
+
+        Обыный файл
+            uname@cpname:~$ date; sudo find . -type f -exec ls -l {} \; 2>/dev/null | head -n 1
+                Ср 26 фев 2025 19:20:53 MSK
+                -rw------- 1 uname uname 1200 фев 25 14:15 ./.gnupg/trustdb.gpg
+
+        Директория
+            uname@cpname:~$ date; sudo find . -type d -exec ls -l {} \; 2>/dev/null | head -n 2
+                Ср 26 фев 2025 19:21:47 MSK
+                итого 104
+                -rw-rw-r-- 1 uname uname    64 фев 26 17:49 file_links.txt
+
+        Файл блочного устрйства
+            uname@cpname:~$ date; sudo find / -type b -exec ls -l {} \; 2>/dev/null | head -n 1
+                Ср 26 фев 2025 19:22:40 MSK
+                brw-rw---- 1 root disk 7, 0 фев 26 17:26 /dev/loop0
+        
+        Символьная ссылка
+            uname@cpname:~$ date; sudo find / -type l -exec ls -l {} \; 2>/dev/null | head -n 1
+                Ср 26 фев 2025 19:23:25 MSK
+                lrwxrwxrwx 1 root root 9 апр 22  2024 /lib64 -> usr/lib64
+
+        Файл символьного устройства
+            uname@cpname:~$ date; sudo find / -type c -exec ls -l {} \; 2>/dev/null | head -n 1
+                Ср 26 фев 2025 19:23:39 MSK
+                crw-rw-rw- 1 root root 1, 3 янв 10 16:46 /snap/core22/1748/dev/null
+
+        Именнованный канал (FIFO)
+            uname@cpname:~$ date; sudo find / -type p -exec ls -l {} \; 2>/dev/null | head -n 1
+                Ср 26 фев 2025 19:23:51 MSK
+                p--------- 1 root root 0 фев 26 17:26 /run/systemd/inaccessible/fifo
+        
+        Сокет
+            uname@cpname:~$ date; sudo find / -type s -exec ls -l {} \; 2>/dev/null | head -n 1
+                Ср 26 фев 2025 19:24:03 MSK
+                srwxrwxrwx 1 uname uname 0 фев 26 17:28 /tmp/.ICE-unix/1987
+
+    Пример вложенных команд
+        uname@cpname:~$ (date; cd finddir)  (Перейдём в папку для демонстрации вложенных команд)
+            Ср 26 фев 2025 19:27:28 MSK
+
+        uname@cpname:~/finddir$ (date && touch f.bmp c.txt pic.png)
+            Ср 26 фев 2025 19:29:27 MSK
+
+        uname@cpname:~/finddir$ (date && echo "some text" >> a.txt) (Увеличим размер одного из файлов)
+            Ср 26 фев 2025 19:32:47 MSK
+
+        uname@cpname:~/finddir$ (date && ls -l) (состояние директории до использования find)
+            Ср 26 фев 2025 19:37:03 MSK
+            итого 4
+            -rw-rw-r-- 1 uname uname 10 фев 26 19:32 a.txt
+            -rw-rw-r-- 1 uname uname  0 фев 26 18:35 b.txt
+            -rw-rw-r-- 1 uname uname  0 фев 26 19:29 c.txt
+            -rw-rw-r-- 1 uname uname  0 фев 26 19:29 f.bmp
+            -rw-rw-r-- 1 uname uname  0 фев 26 19:29 pic.png
+
+        Удалим все файлы с расширением .txt, размер которых равен 0 байт
+            uname@cpname:~/finddir$ date; find . -name "*.txt" -size 0b -exec rm {} \;
+                Ср 26 фев 2025 19:39:13 MSK
+
+        uname@cpname:~/finddir$ (date && ls -l) (состояние директории после использования find)
+            Ср 26 фев 2025 19:40:01 MSK
+            итого 4
+            -rw-rw-r-- 1 uname uname 10 фев 26 19:32 a.txt
+            -rw-rw-r-- 1 uname uname  0 фев 26 19:29 f.bmp
+            -rw-rw-r-- 1 uname uname  0 фев 26 19:29 pic.png
+
+        Видно, что были удалены необходимые файлы
+
+Задание 6
