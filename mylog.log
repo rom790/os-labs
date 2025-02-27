@@ -726,3 +726,218 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
 
         Файл доступен для чтения и записи владельцем, домтупен для чтения группе владельца, доступен для исполнения всеми пользователями.
         Бит s означает, что файл запускается с правами владельца для любых пользователей
+
+
+Задание 9
+
+9.1 
+    uname@cpname:~$ (date && mkdir moddir) (создание специального каталога)
+        Чт 27 фев 2025 10:52:27 MSK
+    uname@cpname:~$ date; cd moddir
+        Чт 27 фев 2025 11:07:42 MSK
+    uname@cpname:~/moddir$ date; touch a.txt b.txt c.txt d.txt
+        Чт 27 фев 2025 11:08:02 MSK
+    uname@cpname:~/moddir$ (date && ls -l)
+        Чт 27 фев 2025 11:08:43 MSK
+        итого 0
+        -rw-rw-r-- 1 uname uname 0 фев 27 11:08 a.txt
+        -rw-rw-r-- 1 uname uname 0 фев 27 11:08 b.txt
+        -rw-rw-r-- 1 uname uname 0 фев 27 11:08 c.txt
+        -rw-rw-r-- 1 uname uname 0 фев 27 11:08 d.txt
+    uname@cpname:~/moddir$ date; find . -type f -exec chmod 777 {} \; (полные права на файлы для всех групп пользователей)
+        Чт 27 фев 2025 11:11:59 MSK
+    uname@cpname:~/moddir$ (date && ls -l)   
+        Чт 27 фев 2025 11:12:51 MSK
+        итого 0
+        -rwxrwxrwx 1 uname uname 0 фев 27 11:08 a.txt
+        -rwxrwxrwx 1 uname uname 0 фев 27 11:08 b.txt
+        -rwxrwxrwx 1 uname uname 0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 uname uname 0 фев 27 11:08 d.txt
+
+    uname@cpname:~/moddir$ date; chmod go-x a.txt b.txt (уберем право на исполнение файлов a.txt и b.txt для группы и остальных пользователей)
+        Чт 27 фев 2025 11:14:37 MSK
+
+    uname@cpname:~/moddir$ (date && ls -l)
+        Чт 27 фев 2025 11:15:44 MSK
+        итого 0
+        -rwxrw-rw- 1 uname uname 0 фев 27 11:08 a.txt
+        -rwxrw-rw- 1 uname uname 0 фев 27 11:08 b.txt
+        -rwxrwxrwx 1 uname uname 0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 uname uname 0 фев 27 11:08 d.txt
+
+    uname@cpname:~/moddir$ date; chmod 700 c.txt (запретим доступ к c.txt для всех, кроме владельца)
+        Чт 27 фев 2025 11:19:02 MSK
+    uname@cpname:~/moddir$ (date && ls -l)
+        Чт 27 фев 2025 11:19:12 MSK
+        итого 0
+        -rwxrw-rw- 1 uname uname 0 фев 27 11:08 a.txt
+        -rwxrw-rw- 1 uname uname 0 фев 27 11:08 b.txt
+        -rwx------ 1 uname uname 0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 uname uname 0 фев 27 11:08 d.txt
+
+    uname@cpname:~/moddir$ date; sudo useradd fileowner (создание нивого пользователя)
+        Чт 27 фев 2025 11:21:56 MSK
+
+    uname@cpname:~/modd ir$ date; sudo chown fileowner d.txt (изменим владельца файла d.txt)
+        Чт 27 фев 2025 11:22:33 MSK
+    uname@cpname:~/moddir$ (date && ls -l)
+        Чт 27 фев 2025 11:22:38 MSK
+        итого 0
+        -rwxrw-rw- 1 uname     uname 0 фев 27 11:08 a.txt
+        -rwxrw-rw- 1 uname     uname 0 фев 27 11:08 b.txt
+        -rwx------ 1 uname     uname 0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 fileowner uname 0 фев 27 11:08 d.txt
+
+    uname@cpname:~/moddir$ date; sudo groupadd fileowngroup (создание новой группы)
+        Чт 27 фев 2025 11:24:55 MSK
+
+    uname@cpname:~/moddir$ date; sudo chown :fileowngroup d.txt (изменение группы файла d.txt)
+        Чт 27 фев 2025 11:26:45 MSK
+    uname@cpname:~/moddir$ (date && ls -l)
+        Чт 27 фев 2025 11:27:41 MSK
+        итого 0
+        -rwxrw-rw- 1 uname     uname        0 фев 27 11:08 a.txt
+        -rwxrw-rw- 1 uname     uname        0 фев 27 11:08 b.txt
+        -rwx------ 1 uname     uname        0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 fileowner fileowngroup 0 фев 27 11:08 d.txt
+
+9.2
+    uname@cpname:~/moddir$ date; chmod u+s a.txt (изменение права исполнения при помощи флага suid)
+        Чт 27 фев 2025 11:35:50 MSK
+    uname@cpname:~/moddir$ (date && ls -l)
+        Чт 27 фев 2025 11:37:38 MSK
+        итого 0
+        -rwsrw-rw- 1 uname     uname        0 фев 27 11:08 a.txt
+        -rwxrw-rw- 1 uname     uname        0 фев 27 11:08 b.txt
+        -rwx------ 1 uname     uname        0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 fileowner fileowngroup 0 фев 27 11:08 d.txt
+
+    Теперь все пользователи могут выполнять файл a.txt с правами владельца
+
+9.3
+
+
+    uname@cpname:~/moddir$ date; sudo usermod -aG fileowngroup fileowner (добавили пользователя fileown в группу fileowner)
+        Чт 27 фев 2025 11:52:04 MSK
+        
+    uname@cpname:~/moddir$ date; sudo useradd otheruser (создание ещё одного пользователя, не состоящего в группе)
+        Чт 27 фев 2025 11:53:34 MSK
+
+    uname@cpname:~/moddir$ date; touch e.txt (создание тестового файла)
+        Чт 27 фев 2025 11:54:22 MSK 
+
+    uname@cpname:~/moddir$ date; chmod 640 e.txt (ограничивваем доступ к файлу для пользователей не состоящих в группе)
+        Чт 27 фев 2025 11:55:13 MSK
+
+    uname@cpname:~/moddir$ (date && ls -l) (состояние файлов)
+        Чт 27 фев 2025 11:56:06 MSK
+        итого 0
+        -rwsrw-rw- 1 uname     uname        0 фев 27 11:08 a.txt
+        -rwxrw-rw- 1 uname     uname        0 фев 27 11:08 b.txt
+        -rwx------ 1 uname     uname        0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 fileowner fileowngroup 0 фев 27 11:08 d.txt
+        -rw-r----- 1 uname     uname        0 фев 27 11:54 e.txt
+
+    uname@cpname:~/moddir$ date; sudo chown fileowner:fileowngroup e.txt (смена владельца и группы файла)
+        Чт 27 фев 2025 11:57:11 MSK
+    uname@cpname:~/moddir$ (date && ls -l)
+        Чт 27 фев 2025 11:57:53 MSK
+        итого 0
+        -rwsrw-rw- 1 uname     uname        0 фев 27 11:08 a.txt
+        -rwxrw-rw- 1 uname     uname        0 фев 27 11:08 b.txt
+        -rwx------ 1 uname     uname        0 фев 27 11:08 c.txt
+        -rwxrwxrwx 1 fileowner fileowngroup 0 фев 27 11:08 d.txt
+        -rw-r----- 1 fileowner fileowngroup 0 фев 27 11:54 e.txt
+
+    uname@cpname:~/moddir$ date; sudo -u fileowner cat e.txt (обращаемся к фалу от имени владельца)
+        Чт 27 фев 2025 11:58:44 MSK
+
+        Доступ к файлу есть
+    
+    uname@cpname:~/moddir$ date; sudo -u otheruser cat e.txt (обращаемся от имени стороннего пользователя, не состоящего в группе)
+        Чт 27 фев 2025 11:59:44 MSK
+        cat: e.txt: Отказано в доступе
+
+9.4
+    uname@cpname:~/moddir$ date; echo "some text" >> c.txt (помещаем некоторый текст в файл c.txt)
+        Чт 27 фев 2025 12:05:17 MSK
+
+    uname@cpname:~/moddir$ date; chmod 000 c.txt (никакие пользователи не могут обращаться к файлу)
+        Чт 27 фев 2025 12:06:22 MSK
+
+    uname@cpname:~/moddir$ date; cat c.txt
+        Чт 27 фев 2025 12:08:51 MSK
+        cat: c.txt: Отказано в доступе
+
+    uname@cpname:~/moddir$ date; chmod 200 c.txt (добавим возможность записывать в файл)
+        Чт 27 фев 2025 12:09:17 MSK
+
+    uname@cpname:~/moddir$ date; echo "more text" >> c.txt (запись выполнена)
+        Чт 27 фев 2025 12:10:17 MSK
+
+    uname@cpname:~/moddir$ date; chmod 400 c.txt (разрешим чтение)
+        Чт 27 фев 2025 12:11:01 MSK
+
+    uname@cpname:~/moddir$ date; cat c.txt (видно, что прошлое сообщение было записано)
+        Чт 27 фев 2025 12:11:09 MSK
+        some text
+        more text
+
+    uname@cpname:~/moddir$ date; echo "11" >> c.txt (при этом запись недоступна)
+        Чт 27 фев 2025 12:13:02 MSK
+        bash: c.txt: Отказано в доступе
+
+    uname@cpname:~/moddir$ date; mkdir dirdir (создана директорию для тестов)
+        Чт 27 фев 2025 12:14:18 MSK
+    uname@cpname:~/moddir$ date; touch dirdir/file.txt (создание файла в этой директории)
+        Чт 27 фев 2025 12:15:26 MSK
+    uname@cpname:~/moddir$ date; echo "gnu's not unux" >> dirdir/file.txt (запись текста в файл)
+        Чт 27 фев 2025 12:16:08 MSK
+
+    uname@cpname:~/moddir$ date; chmod 000 dirdir (ограничение доступа к директории для всех пользователей)
+        Чт 27 фев 2025 12:18:23 MSK
+
+    uname@cpname:~/moddir$ date; cat dirdir/file.txt (попытка прочитать содержимого файла из этой директории)
+        Чт 27 фев 2025 12:19:09 MSK
+        cat: dirdir/file.txt: Отказано в доступе
+
+    uname@cpname:~/moddir$ date; chmod 700 dirdir
+        Чт 27 фев 2025 12:23:49 MSK
+
+    uname@cpname:~/moddir$ cd dirdir
+
+    uname@cpname:~/moddir/dirdir$ ls -l
+        итого 4
+        -rw-rw-r-- 1 uname uname 14 фев 27 12:16 file.txt
+
+    Даже несмотря не то, что файл доступен для чтения и записи, если доступ к директории, 
+    в которой лежит этот файл ограничен, то обратиться к нему не получится
+
+
+Задание 10
+
+    uname@cpname:~$ date; touch datafile.txt (создание файла)
+        Чт 27 фев 2025 12:34:51 MSK
+    uname@cpname:~$ date; echo "data for file" > datafile.txt (запись некоторого текста)
+        Чт 27 фев 2025 12:35:16 MSK
+
+    uname@cpname:~$ date; sudo useradd otherfileowner (создан ещё одного пользователя)
+        Чт 27 фев 2025 12:43:06 MSK
+    uname@cpname:~$ date; sudo usermod -aG fileowngroup otherfileowner (добавили его в группу к fileowner)
+        Чт 27 фев 2025 12:44:08 MSK
+
+    
+    Теперь есть два пользователя otherfileowner, который находится в той же группе, что и владелец файла
+    и otheruser, который находится в другой группе
+
+    uname@cpname:~$ date; sudo chmod 600 datafile.txt (ограничим доступ всем пользователям, кроме владельца)
+        Чт 27 фев 2025 12:48:42 MSK
+    name@cpname:~$ date; sudo chown fileowner:fileowngroup datafile.txt (изменим владельца и группу)
+        Чт 27 фев 2025 12:49:32 MSK
+
+    uname@cpname:~$ date; sudo chmod u+s datafile.txt (установим флаг SUID)
+        Чт 27 фев 2025 12:53:44 MSK
+        
+    uname@cpname:~$ date; ls -l datafile.txt (состояние доступа к файлу)
+        Чт 27 фев 2025 12:53:51 MSK
+        -rwS------ 1 fileowner fileowngroup 14 фев 27 12:35 datafile.txt
