@@ -426,7 +426,7 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
                 итого 104
                 -rw-rw-r-- 1 uname uname    64 фев 26 17:49 file_links.txt
 
-        Файл блочного устрйства
+        Файл блочного устройства
             uname@cpname:~$ date; sudo find / -type b -exec ls -l {} \; 2>/dev/null | head -n 1
                 Ср 26 фев 2025 19:22:40 MSK
                 brw-rw---- 1 root disk 7, 0 фев 26 17:26 /dev/loop0
@@ -962,3 +962,232 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
 
     Оба пользователя смогли получить доступ к файлу через скрипт, потому что он запускался с правами владельца файла.
     При этом, напрямую доступ ограничен
+
+
+Задание 11
+11, 11.1
+    uname@cpname:~$ date; df -h (вывод информации о смонтированных файловых системах)
+        Чт 27 фев 2025 16:14:32 MSK
+        Файл.система   Размер Использовано   Дост Использовано% Cмонтировано в
+        tmpfs            299M         1,6M  297M            1% /run
+        /dev/sda2         25G         9,5G   14G           41% /
+        tmpfs            1,5G          72M  1,4G            5% /dev/shm
+        tmpfs            5,0M         8,0K  5,0M            1% /run/lock
+        tmpfs            299M         140K  299M            1% /run/user/1000
+        /dev/sr1          51M          51M     0          100% /media/uname/VBox_GAs_7.0.12
+        /dev/sr0         6,0G         6,0G     0          100% /media/uname/Ubuntu 24.04.2 LTS amd64
+
+    uname@cpname:~$ date; mount (показывает все смонтированные файловые системы)
+        Чт 27 фев 2025 16:17:57 MSK
+        sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+        proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+        udev on /dev type devtmpfs (rw,nosuid,relatime,size=1490980k,nr_inodes=372745,mode=755,inode64)
+        devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+        tmpfs on /run type tmpfs (rw,nosuid,nodev,noexec,relatime,size=305740k,mode=755,inode64)
+        /dev/sda2 on / type ext4 (rw,relatime)
+        securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+        tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,inode64)
+        tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k,inode64)
+        cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
+        pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+        bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
+        systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=32,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=452)
+        tracefs on /sys/kernel/tracing type tracefs (rw,nosuid,nodev,noexec,relatime)
+        debugfs on /sys/kernel/debug type debugfs (rw,nosuid,nodev,noexec,relatime)
+        mqueue on /dev/mqueue type mqueue (rw,nosuid,nodev,noexec,relatime)
+        hugetlbfs on /dev/hugepages type hugetlbfs (rw,nosuid,nodev,relatime,pagesize=2M)
+        fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
+        configfs on /sys/kernel/config type configfs (rw,nosuid,nodev,noexec,relatime)
+        /var/lib/snapd/snaps/bare_5.snap on /snap/bare/5 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/code_184.snap on /snap/code/184 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/core20_2496.snap on /snap/core20/2496 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/firefox_5751.snap on /snap/firefox/5751 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/core22_1748.snap on /snap/core22/1748 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/firefox_5783.snap on /snap/firefox/5783 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/firmware-updater_167.snap on /snap/firmware-updater/167 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/gnome-42-2204_202.snap on /snap/gnome-42-2204/202 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/gtk-common-themes_1535.snap on /snap/gtk-common-themes/1535 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/snap-store_1248.snap on /snap/snap-store/1248 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/snapd_23545.snap on /snap/snapd/23545 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        /var/lib/snapd/snaps/snapd-desktop-integration_253.snap on /snap/snapd-desktop-integration/253 type squashfs (ro,nodev,relatime,errors=continue,threads=single,x-gdu.hide,x-gvfs-hide)
+        binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+        tmpfs on /run/snapd/ns type tmpfs (rw,nosuid,nodev,noexec,relatime,size=305740k,mode=755,inode64)
+        nsfs on /run/snapd/ns/snapd-desktop-integration.mnt type nsfs (rw)
+        tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=305736k,nr_inodes=76434,mode=700,uid=1000,gid=1000,inode64)
+        portal on /run/user/1000/doc type fuse.portal (rw,nosuid,nodev,relatime,user_id=1000,group_id=1000)
+        gvfsd-fuse on /run/user/1000/gvfs type fuse.gvfsd-fuse (rw,nosuid,nodev,relatime,user_id=1000,group_id=1000)
+        /dev/sr1 on /media/uname/VBox_GAs_7.0.12 type iso9660 (ro,nosuid,nodev,relatime,nojoliet,check=s,map=n,blocksize=2048,uid=1000,gid=1000,dmode=500,fmode=400,iocharset=utf8,uhelper=udisks2)
+        /dev/sr0 on /media/uname/Ubuntu 24.04.2 LTS amd64 type iso9660 (ro,nosuid,nodev,relatime,nojoliet,check=s,map=n,blocksize=2048,uid=1000,gid=1000,dmode=500,fmode=400,iocharset=utf8,uhelper=udisks2)
+        nsfs on /run/snapd/ns/firefox.mnt type nsfs (rw)
+        nsfs on /run/snapd/ns/snap-store.mnt type nsfs (rw)
+
+    uname@cpname:~$ date; lsblk -f (информация о блочных устройствах в том числе файловых системах)
+        Чт 27 фев 2025 16:19:44 MSK
+        NAME   FSTYPE  FSVER            LABEL                    UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+        loop0                                                                                               0   100% /snap/bare/5
+        loop1                                                                                               0   100% /snap/code/184
+        loop2                                                                                               0   100% /snap/core20/2496
+        loop3                                                                                               0   100% /snap/core22/1748
+        loop4                                                                                               0   100% /snap/firefox/5751
+        loop5                                                                                               0   100% /snap/firefox/5783
+        loop6                                                                                               0   100% /snap/firmware-updater/167
+        loop7                                                                                               0   100% /snap/gnome-42-2204/202
+        loop8                                                                                               0   100% /snap/gtk-common-themes/1535
+        loop9                                                                                               0   100% /snap/snap-store/1248
+        loop10                                                                                              0   100% /snap/snapd/23545
+        loop11                                                                                              0   100% /snap/snapd-desktop-integration/253
+        sda                                                                                                          
+        ├─sda1                                                                                                       
+        └─sda2 ext4    1.0                                       7235701e-59af-4df7-94ec-dc112a0642fa   13,7G    39% /
+        sr0    iso9660 Joliet Extension Ubuntu 24.04.2 LTS amd64 2025-02-15-09-15-26-00                     0   100% /media/uname/Ubuntu 24.04.2 LTS amd64
+        sr1    iso9660 Joliet Extension VBox_GAs_7.0.12          2023-10-12-17-41-58-38                     0   100% /media/uname/VBox_GAs_7.0.12
+
+    
+    uname@cpname:/$ date; cat /etc/fstab (содержит информацию о файловых системах, которые могут быть смонтированы при загрузке системы)
+        Чт 27 фев 2025 16:22:59 MSK
+        # <file system> <mount point>   <type>  <options>       <dump>  <pass>
+        /dev/disk/by-uuid/7235701e-59af-4df7-94ec-dc112a0642fa / ext4 defaults 0 1
+        /swap.img       none    swap    sw      0       0
+
+11.2 
+    Проанализируем вывод команды df
+    Структура и состав образа
+        Основной раздел с файловой системой (/dev/sda2)
+            Файловая система ext4.
+            Это основной раздел, на котором расположена вся операционная система.
+            Размер: 25 GB.
+
+        Временные файловые системы (tmpfs)
+            Размеры tmpfs файловых систем варьируются, но они не записываются на диск. Эти данные исчезают после перезагрузки.
+
+        ISO-образы (/dev/sr0, /dev/sr1)
+            Эти устройства представляют собой оптические диски с образами ISO. 
+            Они не изменяются и могут быть использованы для установки или обновления операционных систем.
+            Размеры: около 6 GB для /dev/sr0 и 51 MB для /dev/sr1.
+
+    uname@cpname:/$ date; findmnt (вывод полного дерева файловых систем)
+        Чт 27 фев 2025 16:57:39 MSK
+        TARGET                                            SOURCE                 FSTYPE          OPTIONS
+        /                                                 /dev/sda2              ext4            rw,relatime
+        ├─/sys                                            sysfs                  sysfs           rw,nosuid,nodev,noexec,relatime
+        │ ├─/sys/kernel/security                          securityfs             securityfs      rw,nosuid,nodev,noexec,relatime
+        │ ├─/sys/fs/cgroup                                cgroup2                cgroup2         rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot
+        │ ├─/sys/fs/pstore                                pstore                 pstore          rw,nosuid,nodev,noexec,relatime
+        │ ├─/sys/fs/bpf                                   bpf                    bpf             rw,nosuid,nodev,noexec,relatime,mode=700
+        │ ├─/sys/kernel/tracing                           tracefs                tracefs         rw,nosuid,nodev,noexec,relatime
+        │ ├─/sys/kernel/debug                             debugfs                debugfs         rw,nosuid,nodev,noexec,relatime
+        │ ├─/sys/fs/fuse/connections                      fusectl                fusectl         rw,nosuid,nodev,noexec,relatime
+        │ └─/sys/kernel/config                            configfs               configfs        rw,nosuid,nodev,noexec,relatime
+        ├─/proc                                           proc                   proc            rw,nosuid,nodev,noexec,relatime
+        │ └─/proc/sys/fs/binfmt_misc                      systemd-1              autofs          rw,relatime,fd=32,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=452
+        │   └─/proc/sys/fs/binfmt_misc                    binfmt_misc            binfmt_misc     rw,nosuid,nodev,noexec,relatime
+        ├─/dev                                            udev                   devtmpfs        rw,nosuid,relatime,size=1490980k,nr_inodes=372745,mode=755,inode64
+        │ ├─/dev/pts                                      devpts                 devpts          rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+        │ ├─/dev/shm                                      tmpfs                  tmpfs           rw,nosuid,nodev,inode64
+        │ ├─/dev/mqueue                                   mqueue                 mqueue          rw,nosuid,nodev,noexec,relatime
+        │ └─/dev/hugepages                                hugetlbfs              hugetlbfs       rw,nosuid,nodev,relatime,pagesize=2M
+        ├─/run                                            tmpfs                  tmpfs           rw,nosuid,nodev,noexec,relatime,size=305740k,mode=755,inode64
+        │ ├─/run/lock                                     tmpfs                  tmpfs           rw,nosuid,nodev,noexec,relatime,size=5120k,inode64
+        │ ├─/run/snapd/ns                                 tmpfs[/snapd/ns]       tmpfs           rw,nosuid,nodev,noexec,relatime,size=305740k,mode=755,inode64
+        │ │ ├─/run/snapd/ns/snapd-desktop-integration.mnt nsfs[mnt:[4026532435]] nsfs            rw
+        │ │ ├─/run/snapd/ns/firefox.mnt                   nsfs[mnt:[4026532254]] nsfs            rw
+        │ │ └─/run/snapd/ns/snap-store.mnt                nsfs[mnt:[4026532900]] nsfs            rw
+        │ └─/run/user/1000                                tmpfs                  tmpfs           rw,nosuid,nodev,relatime,size=305736k,nr_inodes=76434,mode=700,uid=1000,gid=1000,inode64
+        │   ├─/run/user/1000/doc                          portal                 fuse.portal     rw,nosuid,nodev,relatime,user_id=1000,group_id=1000
+        │   └─/run/user/1000/gvfs                         gvfsd-fuse             fuse.gvfsd-fuse rw,nosuid,nodev,relatime,user_id=1000,group_id=1000
+        ├─/snap/bare/5                                    /dev/loop0             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/code/184                                  /dev/loop1             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/core20/2496                               /dev/loop2             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/firefox/5751                              /dev/loop4             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/core22/1748                               /dev/loop3             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/firefox/5783                              /dev/loop5             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/firmware-updater/167                      /dev/loop6             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/gnome-42-2204/202                         /dev/loop7             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/gtk-common-themes/1535                    /dev/loop8             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/snap-store/1248                           /dev/loop9             squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/snapd/23545                               /dev/loop10            squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/snap/snapd-desktop-integration/253             /dev/loop11            squashfs        ro,nodev,relatime,errors=continue,threads=single
+        ├─/media/uname/VBox_GAs_7.0.12                    /dev/sr1               iso9660         ro,nosuid,nodev,relatime,nojoliet,check=s,map=n,blocksize=2048,uid=1000,gid=1000,dmode=500,fmode=400,iocharset=utf8
+        └─/media/uname/Ubuntu 24.04.2 LTS amd64           /dev/sr0               iso9660         ro,nosuid,nodev,relatime,nojoliet,check=s,map=n,blocksize=2048,uid=1000,gid=1000,dmode=500,fmode=400,iocharset=utf8
+
+    
+    Файл etc/fstab содержит следующие записи:
+        # <file system>                          <mount point>   <type>  <options>       <dump>  <pass>
+        /dev/disk/by-uuid/7235701e-59af-4df7-94ec-dc112a0642fa  /               ext4    defaults        0       1
+        /swap.img                                 none            swap    sw               0       0
+
+    Анализ:
+        /dev/disk/by-uuid/7235701e-59af-4df7-94ec-dc112a0642fa:
+            Тип: Файловая система ext4,
+            Точка монтирования: / — корневая файловая система.
+            Опции: defaults — стандартные параметры для монтирования, без дополнительных ограничений.
+            Состояние: Эта файловая система используется для хранения всех системных файлов и данных ОС.
+        /swap.img:
+            Тип: Раздел swap — виртуальная память, используемая операционной системой для расширения объема памяти.
+            Точка монтирования: Не указана, так как это файл подкачки (не требует монтирования).
+            Опции: sw — файл подкачки.
+            Состояние: Раздел подкачки используется системой для виртуальной памяти, но не имеет точки монтирования.
+11.3
+
+    Ограничение на длину пути задаётся в системной константе PATH_MAX
+
+    uname@cpname:/$ date; grep PATH_MAX /usr/include/linux/limits.h (Вывод значения PTH_MAX)
+    Чт 27 фев 2025 17:10:48 MSK
+    #define PATH_MAX        4096    /* # chars in a path name including nul */
+    
+    В данном случае задано ограничение в 4096 символов
+
+    Напишем скрипт для поиска самого длинного пути
+
+    uname@cpname:~$ date; sudo ./eleventh.sh ../.. 2>/dev/null (вызов скрипта)
+        Чт 27 фев 2025 17:16:08 MSK
+        Самый длинный путь: ../../home/uname/snap/firefox/common/.mozilla/firefox/co9f0xf6.default/storage/default/https+++www.youtube.com^partitionKey=%28https%2Cgoogle.com%29/idb/127138257LCo7g%sCD7a%tda3b0abs.sqlite-wal
+        Длина пути: 195
+
+    
+Задание 12
+12, 12.1
+    Утилита file анализирует содержимое файла и определяет его тип на основе определённых шаблонов, известных как магические числа.
+    Эти магические числа находятся в файлах базы данных, которые описывают структуру различных типов файлов.
+
+    Алгоритм работы:
+        Открытие файла:
+            Утилита читает первые несколько байт файла для анализа. 
+            Обычно это заголовок или первые несколько байт, так как для многих типов файлов можно точно определить тип, анализируя только их заголовок.
+        Проверка по базе данных (magic database):
+            Утилита сравнивает прочитанные байты с записанными в базе данных магическими числами, которые ассоциированы с конкретными типами файлов. 
+        Идентификация типа файла:
+            На основе совпадений с магическими числами, утилита определяет тип файла.
+
+    Рассмотрим несолкько примеров для разных файлов
+        uname@cpname:~$ date; hexdump -n 64 -C tenth (для elf фалов)
+            Чт 27 фев 2025 17:52:59 MSK
+            00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+            00000010  03 00 3e 00 01 00 00 00  20 11 00 00 00 00 00 00  |..>..... .......|
+            00000020  40 00 00 00 00 00 00 00  98 37 00 00 00 00 00 00  |@........7......|
+            00000030  00 00 00 00 40 00 38 00  0d 00 40 00 1f 00 1e 00  |....@.8...@.....|
+            00000040
+
+        uname@cpname:~$ date; hexdump -n 64 -C diffiles/j.jpeg
+            Чт 27 фев 2025 17:53:56 MSK
+            00000000  ff d8 ff e0 00 10 4a 46  49 46 00 01 01 00 00 01  |......JFIF......|
+            00000010  00 01 00 00 ff db 00 84  00 09 06 07 13 13 12 15  |................|
+            00000020  13 13 13 15 15 15 17 17  18 19 17 17 15 16 15 17  |................|
+            00000030  17 18 17 17 15 18 17 16  15 17 17 18 1d 28 20 18  |.............( .|
+            00000040
+
+    Несколько примеров:
+        Исполняемые файлы ELF (Linux, macOS):
+        Магическое число: 0x7F 45 4C 46
+
+        Файлы JPEG:
+        Магическое число: 0xFF D8 FF
+
+        Файлы PNG:
+        Магическое число: 0x89 50 4E 47 0D 0A 1A 0A
+
+        Файлы PDF:
+        Магическое число: 0x25 50 44 46 2D (или %PDF- в ASCII)
+
+        
+12.2
