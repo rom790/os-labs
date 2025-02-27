@@ -934,10 +934,31 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
         Чт 27 фев 2025 12:48:42 MSK
     name@cpname:~$ date; sudo chown fileowner:fileowngroup datafile.txt (изменим владельца и группу)
         Чт 27 фев 2025 12:49:32 MSK
-
-    uname@cpname:~$ date; sudo chmod u+s datafile.txt (установим флаг SUID)
-        Чт 27 фев 2025 12:53:44 MSK
         
     uname@cpname:~$ date; ls -l datafile.txt (состояние доступа к файлу)
         Чт 27 фев 2025 12:53:51 MSK
-        -rwS------ 1 fileowner fileowngroup 14 фев 27 12:35 datafile.txt
+        -rw------- 1 fileowner fileowngroup 14 фев 27 12:35 datafile.txt
+
+    Напишем скрипт для получения содержимого файла 
+    
+    uname@cpname:~$ date; gcc -o tenth tenth.c
+    Чт 27 фев 2025 15:40:44 MSK
+    uname@cpname:~$ date; sudo chown fileowner:fileowngroup tenth
+    Чт 27 фев 2025 15:41:17 MSK
+    uname@cpname:~$ date; sudo chmod u+s tenth 
+    Чт 27 фев 2025 15:42:12 MSK
+
+    uname@cpname:~$ date; sudo -u otherfileowner ./tenth datafile.txt (запуск скрипта от имени пользователя принадлежащего группе владельца)
+        Чт 27 фев 2025 16:01:28 MSK
+        data for file
+
+    uname@cpname:~$ date; sudo -u otheruser ./tenth datafile.txt (запуск от имени пользователя из другой группы)
+        Чт 27 фев 2025 16:02:41 MSK
+        data for file
+
+    uname@cpname:~$ date; sudo -u otheruser cat datafile.txt (пытаемся получить доступ напрямую)
+        Чт 27 фев 2025 16:03:46 MSK
+        cat: datafile.txt: Отказано в доступе
+
+    Оба пользователя смогли получить доступ к файлу через скрипт, потому что он запускался с правами владельца файла.
+    При этом, напрямую доступ ограничен
