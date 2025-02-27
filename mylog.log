@@ -1191,3 +1191,41 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
 
         
 12.2
+
+    uname@cpname:~$ date; file second.sh (вывод типа без ключей)
+    Чт 27 фев 2025 21:43:20 MSK
+    second.sh: POSIX shell script, Unicode text, UTF-8 text executable
+
+    uname@cpname:~$ date; file -b second.sh (только тип файла без дополнительных пояснений)
+    Чт 27 фев 2025 21:43:48 MSK
+    POSIX shell script, Unicode text, UTF-8 text executable
+
+    uname@cpname:~$ date; file -i second.sh (вывод MIME типа файла)
+    Чт 27 фев 2025 21:45:09 MSK
+    second.sh: text/x-shellscript; charset=utf-8
+
+    uname@cpname:~$ date; sudo file -c (включает режим проверки базы данных магических чисел)
+    Чт 27 фев 2025 21:52:05 MSK
+    cont    offset  type    opcode  mask    value   desc
+
+12.3
+
+
+    uname@cpname:~$ date; touch experiment.extype (создаём файл нового типа)
+        Чт 27 фев 2025 22:00:05 MSK
+
+    uname@cpname:~$ date; echo "EXTYPE" > experiment.extype (загружаем сигнатуру для файла)
+        Чт 27 фев 2025 22:01:29 MSK
+
+    uname@cpname:~$ date; touch .magic (локальный файл с магическими числами)
+        Чт 27 фев 2025 22:25:07 MSK
+
+    uname@cpname:~$ date; sudo echo "0 string EXTYPE new custom type" >> .magic
+        Чт 27 фев 2025 22:26:40 MSK
+
+    uname@cpname:~$ date; sudo file -C -m .magic
+        Чт 27 фев 2025 22:27:36 MSK
+        
+    uname@cpname:~$ date; file experiment.extype
+        Чт 27 фев 2025 22:28:16 MSK
+        experiment.extype: new custom type
