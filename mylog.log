@@ -1110,7 +1110,19 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
         ├─/media/uname/VBox_GAs_7.0.12                    /dev/sr1               iso9660         ro,nosuid,nodev,relatime,nojoliet,check=s,map=n,blocksize=2048,uid=1000,gid=1000,dmode=500,fmode=400,iocharset=utf8
         └─/media/uname/Ubuntu 24.04.2 LTS amd64           /dev/sr0               iso9660         ro,nosuid,nodev,relatime,nojoliet,check=s,map=n,blocksize=2048,uid=1000,gid=1000,dmode=500,fmode=400,iocharset=utf8
 
-    
+
+    Попробуем присоединить внешний накопитель
+        uname@cpname:~$ date; findmnt  > b.txt  (сохраняем состояние файлового дерева до присоединения носителя)
+            Пт 07 мар 2025 21:30:57 MSK
+        uname@cpname:~$ date; findmnt  > a.txt  (сохраняем состояние файлового дерева после присоединения носителя)
+            Пт 07 мар 2025 21:31:07 MSK
+
+        uname@cpname:~$ date; diff a.txt b.txt (видно, что появилась новая запись)
+            Пт 07 мар 2025 21:33:39 MSK
+            41d40
+            < /dev/sdb4 on /media/uname/ESD-ISO type vfat (rw,nosuid,nodev,relatime,uid=1000,gid=1000,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,showexec,utf8,flush,errors=remount-ro,uhelper=udisks2)
+
+
     Файл etc/fstab содержит следующие записи:
         # <file system>                          <mount point>   <type>  <options>       <dump>  <pass>
         /dev/disk/by-uuid/7235701e-59af-4df7-94ec-dc112a0642fa  /               ext4    defaults        0       1
@@ -1160,7 +1172,7 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
             На основе совпадений с магическими числами, утилита определяет тип файла.
 
     Рассмотрим несолкько примеров для разных файлов
-        uname@cpname:~$ date; hexdump -n 64 -C tenth (для elf фалов)
+        uname@cpname:~$ date; hexdump -n 64 -C tenth (для elf файлов)
             Чт 27 фев 2025 17:52:59 MSK
             00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
             00000010  03 00 3e 00 01 00 00 00  20 11 00 00 00 00 00 00  |..>..... .......|
@@ -1209,7 +1221,6 @@ Linux cpname 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 20
     cont    offset  type    opcode  mask    value   desc
 
 12.3
-
 
     uname@cpname:~$ date; touch experiment.extype (создаём файл нового типа)
         Чт 27 фев 2025 22:00:05 MSK
