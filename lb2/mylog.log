@@ -1,0 +1,1640 @@
+Лабораторная работа №2
+ФИО: Романов Егор Алексеевич
+Группа: 3342
+
+Дата: 2025-04-04 09:48:46
+Идентификация исполнителя: root
+
+-----------------------------------------------------------------
+(2025-04-04 09:48:46) ПРОФИЛЬ СИСТЕМЫ
+(2025-04-04 09:48:46) >>> Информация о процессоре (lscpu) <<<
+Архитектура:                          x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Address sizes:                        48 bits physical, 48 bits virtual
+Порядок байт:                         Little Endian
+CPU(s):                               6
+On-line CPU(s) list:                  0-5
+ID прроизводителя:                    AuthenticAMD
+Имя модели:                           AMD Ryzen 5 4500U with Radeon Graphics
+BIOS Model name:                        CPU @ 0.0GHz
+BIOS CPU family:                      0
+Семейство ЦПУ:                        23
+Модель:                               96
+Потоков на ядро:                      1
+Ядер на сокет:                        6
+Сокетов:                              1
+Степпинг:                             1
+BogoMIPS:                             4741,08
+Флаги:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch ssbd vmmcall fsgsbase bmi1 avx2 bmi2 rdseed clflushopt arat
+Разработчик гипервизора:              KVM
+Тип виртуализации:                    полный
+L1d cache:                            192 KiB (6 instances)
+L1i cache:                            192 KiB (6 instances)
+L2 cache:                             3 MiB (6 instances)
+L3 cache:                             48 MiB (6 instances)
+NUMA node(s):                         1
+NUMA node0 CPU(s):                    0-5
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          Not affected
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Not affected
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Mitigation; untrained return thunk; SMT disabled
+Vulnerability Spec rstack overflow:   Vulnerable: Safe RET, no microcode
+Vulnerability Spec store bypass:      Not affected
+Vulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Not affected
+(2025-04-04 09:48:46) ИДЕНТИФИКАЦИЯ ВИРТУАЛЬНОЙ МАШИНЫ
+(2025-04-04 09:48:46) Система запущена в виртуальной машине.
+(2025-04-04 09:48:46) Тип виртуализации: oracle
+
+-----------------------------------------------------------------
+(2025-04-04 09:48:46) ИДЕНТИФИКАЦИЯ/ОПИСАНИЕ ОС
+(2025-04-04 09:48:46) >>> Информация о ядре (uname -a) <<<
+Linux cpname 6.11.0-21-generic #21~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Feb 24 16:52:15 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+(2025-04-04 09:48:46) >>> Информация о версии ОС (lsb_release -a) <<<
+Distributor ID:	Ubuntu
+Description:	Ubuntu 24.04.2 LTS
+Release:	24.04
+Codename:	noble
+
+-----------------------------------------------------------------
+(2025-04-04 09:48:46) НАЧАЛО ВЫПОЛНЕНИЯ ЗАДАНИЙ
+(2025-04-04 09:48:46) Скомпилируем все исходные файлы.
+(2025-04-04 09:48:46) ЗАДАНИЕ 0 
+(2025-04-04 09:48:46) >>> root@cpname$ ./compiller.sh src <<<
+
+
+(2025-04-04 09:48:50) ЗАДАНИЕ 1.1 (Скрипт)
+(2025-04-04 09:48:50) Запуск скрипта ./src/1/1.1.sh.
+Запуск фоновых процессов...
+Задание 1: длительный sleep (20)
+Задание 1 (sleep 20) запущено с PID 19464
+Задание 2: короткий sleep (5)
+Задание 2 (sleep 5) запущено с PID 19465
+Задание 3: средний sleep (15)
+Задание 3 (sleep 15) запущено с PID 19466
+
+Анализ списка заданий:
++ date '+%Y-%m-%d %H:%M:%S'
+2025-04-04 09:48:50
++ jobs -l
+[1]  19464 Запущен          sleep 20 &
+[2]- 19465 Запущен          sleep 5 &
+[3]+ 19466 Запущен          sleep 15 &
+
+Прерывание задания 2 (sleep 5)...
+Задание 2 было прервано.
+./src/1/1.1.sh: строка 61: 19465 Убито              sleep 5
+
+Анализ списка заданий после прерывания задания 2 (sleep 5):
++ date '+%Y-%m-%d %H:%M:%S'
+2025-04-04 09:48:51
++ jobs -l
+[1]- 19464 Запущен          sleep 20 &
+[3]+ 19466 Запущен          sleep 15 &
+
+Ожидание завершения задания 1 (sleep 20)...
+Задание 1 успешно завершено.
+
+Итоговый анализ списка заданий:
++ date '+%Y-%m-%d %H:%M:%S'
+2025-04-04 09:49:11
++ jobs -l
+[3]  19466 Завершён        sleep 15
+
+Скрипт завершен.
+
+
+(2025-04-04 09:49:11) ЗАДАНИЕ 1.2 
+(2025-04-04 09:49:11) >>> root@cpname$ nohup sleep 2000 > nohup.out 2>&1 & <<<
+(2025-04-04 09:49:11) >>> root@cpname$ ps aux | grep sleep <<<
+root       19564  0.0  0.0  17436  2436 pts/2    S+   09:49   0:00 sleep 2000
+root       19569  0.0  0.1  18608  3424 pts/2    S+   09:49   0:00 bash -c ps aux | grep sleep
+root       19571  0.0  0.0  17836  2264 pts/2    S+   09:49   0:00 grep sleep
+
+
+(2025-04-04 09:49:11) Процесс сохраняется после reboot 
+(2025-04-04 09:49:11) ЗАДАНИЕ 1.2 
+(2025-04-04 09:49:11) >>> root@cpname$ ps aux | grep sleep <<<
+root       19564  0.0  0.0  17436  2436 pts/2    S+   09:49   0:00 sleep 2000
+root       19584  0.0  0.1  18608  3360 pts/2    S+   09:49   0:00 bash -c ps aux | grep sleep
+root       19586  0.0  0.0  17836  2312 pts/2    S+   09:49   0:00 grep sleep
+(2025-04-04 09:49:11) >>> root@cpname$ kill -9 19564 <<<
+
+
+(2025-04-04 09:49:11) ЗАДАНИЕ 1.3 (Скрипт)
+(2025-04-04 09:49:11) Запуск скрипта ./src/1/1.3.sh.
+Минимальный PID: 1
+Подробная информация о процессе с PID 1:
+----------------------------------------
+  PID   UID  COMMAND         STAT  START     RSS   PPID   NI
+  1     0    systemd         Ss    09:06      13664  0      0  
+Команда запуска: /sbin/init splash 
+
+Максимальный возможный PID: 4194304
+
+Самый большой активный PID в системе: 19598
+Подробная информация о процессе с PID 19598:
+----------------------------------------
+  PID   UID  COMMAND         STAT  START     RSS   PPID   NI
+  19598 0    bash            S+    09:49      3648   19134  0  
+Команда запуска: bash ./src/1/1.3.sh 
+
+Минимальный UID: 0
+Максимальный UID: 65534
+
+
+(2025-04-04 09:49:12) ЗАДАНИЕ 1.4 (Скрипт)
+(2025-04-04 09:49:12) Запуск скрипта ./src/1/1.4.sh.
+Анализ процессов...
+
+Пример 10 системных процессов:
+==============================================================
+2          root            [kthreadd]                     Системный
+3          root            [pool_workqueue_release]       Системный
+4          root            [kworker/R-rcu_gp]             Системный
+5          root            [kworker/R-sync_wq]            Системный
+6          root            [kworker/R-slub_flushwq]       Системный
+7          root            [kworker/R-netns]              Системный
+10         root            [kworker/0:0H-events_highpr    Системный
+12         root            [kworker/R-mm_percpu_wq]       Системный
+13         root            [rcu_tasks_kthread]            Системный
+14         root            [rcu_tasks_rude_kthread]       Системный
+
+Пример 10 пользовательских процессов:
+==============================================================
+1          root            /sbin/init                     Пользовательский
+282        root            /usr/lib/systemd/systemd-jo    Пользовательский
+357        root            /usr/lib/systemd/systemd-ud    Пользовательский
+513        systemd+        /usr/lib/systemd/systemd-oo    Пользовательский
+515        systemd+        /usr/lib/systemd/systemd-re    Пользовательский
+523        systemd+        /usr/lib/systemd/systemd-ti    Пользовательский
+893        avahi           avahi-daemon:                  Пользовательский
+894        message+        @dbus-daemon                   Пользовательский
+898        gnome-r+        /usr/libexec/gnome-remote-d    Пользовательский
+907        polkitd         /usr/lib/polkit-1/polkitd      Пользовательский
+
+
+
+(2025-04-04 09:49:12) ЗАДАНИЕ 1.5 (Скрипт)
+(2025-04-04 09:49:12) Запуск скрипта ./src/1/1.5.sh.
+
+====== Информация о процессе c PID 19645 ======
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+Tgid:	19645
+Ngid:	0
+Pid:	19645
+PPid:	19134
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	256
+Groups:	0 
+NStgid:	19645
+NSpid:	19645
+NSpgid:	19134
+NSsid:	19134
+Kthread:	0
+VmPeak:	   18608 kB
+VmSize:	   18608 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	    3560 kB
+VmRSS:	    3560 kB
+RssAnon:	     256 kB
+RssFile:	    3304 kB
+RssShmem:	       0 kB
+VmData:	     304 kB
+VmStk:	     132 kB
+VmExe:	     956 kB
+VmLib:	    1824 kB
+VmPTE:	      60 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+untag_mask:	0xffffffffffffffff
+Threads:	1
+SigQ:	1/11699
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000010000
+SigIgn:	0000000000000004
+SigCgt:	0000000000010002
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	not vulnerable
+SpeculationIndirectBranch:	always enabled
+Cpus_allowed:	3f
+Cpus_allowed_list:	0-5
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	1
+nonvoluntary_ctxt_switches:	0
+x86_Thread_features:	
+x86_Thread_features_locked:	
+
+====== Командная строка процесса ======
+bash	./src/1/1.5.sh	
+====== Переменные окружения ======
+SHELL=/bin/bash
+COLORTERM=truecolor
+SUDO_GID=1000
+SUDO_COMMAND=./logger-lb2.sh
+SUDO_USER=uname
+IN_SCRIPT=1
+PWD=/home/uname/lb2/os
+LOGNAME=root
+XAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.GXQF42
+HOME=/root
+LANG=ru_RU.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:
+XDG_CURRENT_DESKTOP=Unity
+LOG_FILE=lab_report_2025-04-04_09-48-46.log
+TERM=xterm-256color
+USER=root
+DISPLAY=:0
+SHLVL=2
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+SUDO_UID=1000
+MAIL=/var/mail/root
+_=/usr/bin/bash
+
+====== Открытые файлы (10 верхних) ======
+/proc/19645/fd: итого 0
+lrwx------ 1 root root 64 апр  4 09:07 0 -> /dev/null
+lrwx------ 1 root root 64 апр  4 09:07 1 -> /dev/null
+lrwx------ 1 root root 64 апр  4 09:07 10 -> anon_inode:[timerfd]
+lrwx------ 1 root root 64 апр  4 09:49 100 -> socket:[15795]
+lrwx------ 1 root root 64 апр  4 09:49 101 -> socket:[27651]
+lrwx------ 1 root root 64 апр  4 09:49 102 -> socket:[18902]
+lrwx------ 1 root root 64 апр  4 09:49 103 -> socket:[19770]
+lrwx------ 1 root root 64 апр  4 09:49 104 -> socket:[11050]
+lrwx------ 1 root root 64 апр  4 09:49 105 -> socket:[19124]
+
+
+(2025-04-04 09:49:12) ЗАДАНИЕ 2.1 
+(2025-04-04 09:49:12) >>> root@cpname$ ./src/2/2.1/2.1 <<<
+Начало программы | PID = 19664 | i = 10  | адрес = 0x7fffa6f85800
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | (после fork)
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 0                   
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 10  | адрес = 0x7fffa6f85800 | (до изменения)
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | (после изменения)
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 0                   
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 10000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 10000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 20000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 20000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 30000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 30000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 40000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 40000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 50000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 50000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 60000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 60000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 70000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 70000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 80000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 80000000            
+Родитель         | PID = 19664 | PPID = 19663 | i = 10  | адрес = 0x7fffa6f85800 | Текущая итерация = 90000000            
+Дочерний процесс | PID = 19665 | PPID = 19664 | i = 60  | адрес = 0x7fffa6f85800 | Текущая итерация = 90000000            
+Дочерний процесс | PID = 19665 | Завершение работы
+Родитель         | PID = 19664 | Завершение работы
+Конец            | PID = 19664 | Завершение программы
+
+
+(2025-04-04 09:49:12) ЗАДАНИЕ 2.2 (Скрипт)
+(2025-04-04 09:49:12) Запуск скрипта ./src/2/2.2/2.2.sh.
+/home/uname/lb2/os
+=== ЗАПУСК В ОБЫЧНОМ РЕЖИМЕ ===
+Родительский процесс выполняется с PID: 19683
+Создан дочерний процесс с PID: 19684
+Ошибка execl: No such file or directory
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19671   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+0 S     0   19683   19671  0  80   0 -   670 do_wai pts/2    00:00:00 father
+0 S     0   19685   19683  0  80   0 -   700 do_wai pts/2    00:00:00 sh
+4 R     0   19686   19685  0  80   0 -  5630 -      pts/2    00:00:00 ps
+0 S     0   19687   19685  0  80   0 -  4361 pipe_r pts/2    00:00:00 tee
+Родительский процесс завершен.
+
+=== ЗАПУСК В ФОНОВОМ РЕЖИМЕ ===
+Родительский процесс запущен в фоне (PID: 19689)
++ ps -el
++ grep father
+0 S     0   19689   19671  0  80   0 -   670 do_wai ?        00:00:00 father
+Процесс завершился
+
+
+(2025-04-04 09:49:19) ЗАДАНИЕ 2.3 
+(2025-04-04 09:49:19) >>> root@cpname$ ./src/2/2.3/2.3 <<<
+Демонстрация работы различных функций exec():
+
+Запуск execl:
+Дочерний процесс [19747] запускает execl...
+итого 136
+drwxrwxr-x 6 uname uname  4096 апр  4 09:49 .
+drwxrwxr-x 3 uname uname  4096 мар 26 17:48 ..
+-rwxrwxr-x 1 uname uname   437 мар 28 09:22 cleaner.sh
+-rwxrwxr-x 1 uname uname   673 мар 28 09:22 compiller.sh
+-rw-r--r-- 1 root  root    126 мар 28 07:49 exec_demo.txt
+-rw-r--r-- 1 root  root    177 апр  4 09:42 exec.txt
+-rw-r--r-- 1 root  root   1047 апр  4 09:39 file.txt
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 .git
+-rw-rw-r-- 1 uname uname   150 мар 26 17:48 .gitignore
+-rw-r--r-- 1 root  root  16384 апр  4 09:49 lab_report_2025-04-04_09-48-46.log
+drwxrwxr-x 2 uname uname  4096 мар 26 17:48 lb1
+-rwxrwxr-x 1 uname uname 11052 мар 26 17:48 logger-lb1.sh
+-rwxrwxr-x 1 uname uname  8040 апр  4 09:32 logger-lb2.sh
+-rw-r--r-- 1 root  root      0 апр  4 09:49 nohup.out
+-rw-r--r-- 1 root  root      0 апр  4 09:39 out.txt
+-rw-r--r-- 1 root  root   1289 апр  4 09:39 processes_after.txt
+-rw-r--r-- 1 root  root   1548 апр  4 09:39 program_out.log
+drwxrwxr-x 3 uname uname  4096 апр  4 09:48 Romanov_Egor_lb2
+-rw-r--r-- 1 root  root   5410 апр  4 09:39 script_output.log
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 src
+-rwxrwxr-x 1 uname uname    36 мар 26 17:48 start.sh
+-rw-r--r-- 1 root  root    189 мар 27 23:31 testfile_clone.txt
+-rw-r--r-- 1 root  root     67 мар 27 23:21 testfile_exec.txt
+-rw-r--r-- 1 root  root  12245 мар 30 20:41 процессы_дочернего.log
+-rw-r--r-- 1 root  root  11631 апр  4 09:49 процессы_родителя.log
+
+Запуск execlp:
+Дочерний процесс [19749] запускает execlp...
+Использует PATH для поиска исполняемого файла
+итого 136
+drwxrwxr-x 6 uname uname  4096 апр  4 09:49 .
+drwxrwxr-x 3 uname uname  4096 мар 26 17:48 ..
+-rwxrwxr-x 1 uname uname   437 мар 28 09:22 cleaner.sh
+-rwxrwxr-x 1 uname uname   673 мар 28 09:22 compiller.sh
+-rw-r--r-- 1 root  root    126 мар 28 07:49 exec_demo.txt
+-rw-r--r-- 1 root  root    177 апр  4 09:42 exec.txt
+-rw-r--r-- 1 root  root   1047 апр  4 09:39 file.txt
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 .git
+-rw-rw-r-- 1 uname uname   150 мар 26 17:48 .gitignore
+-rw-r--r-- 1 root  root  16384 апр  4 09:49 lab_report_2025-04-04_09-48-46.log
+drwxrwxr-x 2 uname uname  4096 мар 26 17:48 lb1
+-rwxrwxr-x 1 uname uname 11052 мар 26 17:48 logger-lb1.sh
+-rwxrwxr-x 1 uname uname  8040 апр  4 09:32 logger-lb2.sh
+-rw-r--r-- 1 root  root      0 апр  4 09:49 nohup.out
+-rw-r--r-- 1 root  root      0 апр  4 09:39 out.txt
+-rw-r--r-- 1 root  root   1289 апр  4 09:39 processes_after.txt
+-rw-r--r-- 1 root  root   1548 апр  4 09:39 program_out.log
+drwxrwxr-x 3 uname uname  4096 апр  4 09:48 Romanov_Egor_lb2
+-rw-r--r-- 1 root  root   5410 апр  4 09:39 script_output.log
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 src
+-rwxrwxr-x 1 uname uname    36 мар 26 17:48 start.sh
+-rw-r--r-- 1 root  root    189 мар 27 23:31 testfile_clone.txt
+-rw-r--r-- 1 root  root     67 мар 27 23:21 testfile_exec.txt
+-rw-r--r-- 1 root  root  12245 мар 30 20:41 процессы_дочернего.log
+-rw-r--r-- 1 root  root  11631 апр  4 09:49 процессы_родителя.log
+
+Запуск execle (с пользовательским окружением):
+Дочерний процесс [19750] запускает execle (с пользовательским окружением)...
+total 136
+drwxrwxr-x 6 uname uname  4096 Apr  4 09:49 .
+drwxrwxr-x 3 uname uname  4096 Mar 26 17:48 ..
+drwxrwxr-x 8 uname uname  4096 Mar 26 17:48 .git
+-rw-rw-r-- 1 uname uname   150 Mar 26 17:48 .gitignore
+drwxrwxr-x 3 uname uname  4096 Apr  4 09:48 Romanov_Egor_lb2
+-rwxrwxr-x 1 uname uname   437 Mar 28 09:22 cleaner.sh
+-rwxrwxr-x 1 uname uname   673 Mar 28 09:22 compiller.sh
+-rw-r--r-- 1 root  root    177 Apr  4 09:42 exec.txt
+-rw-r--r-- 1 root  root    126 Mar 28 07:49 exec_demo.txt
+-rw-r--r-- 1 root  root   1047 Apr  4 09:39 file.txt
+-rw-r--r-- 1 root  root  16384 Apr  4 09:49 lab_report_2025-04-04_09-48-46.log
+drwxrwxr-x 2 uname uname  4096 Mar 26 17:48 lb1
+-rwxrwxr-x 1 uname uname 11052 Mar 26 17:48 logger-lb1.sh
+-rwxrwxr-x 1 uname uname  8040 Apr  4 09:32 logger-lb2.sh
+-rw-r--r-- 1 root  root      0 Apr  4 09:49 nohup.out
+-rw-r--r-- 1 root  root      0 Apr  4 09:39 out.txt
+-rw-r--r-- 1 root  root   1289 Apr  4 09:39 processes_after.txt
+-rw-r--r-- 1 root  root   1548 Apr  4 09:39 program_out.log
+-rw-r--r-- 1 root  root   5410 Apr  4 09:39 script_output.log
+drwxrwxr-x 8 uname uname  4096 Mar 26 17:48 src
+-rwxrwxr-x 1 uname uname    36 Mar 26 17:48 start.sh
+-rw-r--r-- 1 root  root    189 Mar 27 23:31 testfile_clone.txt
+-rw-r--r-- 1 root  root     67 Mar 27 23:21 testfile_exec.txt
+-rw-r--r-- 1 root  root  12245 Mar 30 20:41 процессы_дочернего.log
+-rw-r--r-- 1 root  root  11631 Apr  4 09:49 процессы_родителя.log
+
+Запуск execv:
+Дочерний процесс [19751] запускает execv...
+итого 136
+drwxrwxr-x 6 uname uname  4096 апр  4 09:49 .
+drwxrwxr-x 3 uname uname  4096 мар 26 17:48 ..
+-rwxrwxr-x 1 uname uname   437 мар 28 09:22 cleaner.sh
+-rwxrwxr-x 1 uname uname   673 мар 28 09:22 compiller.sh
+-rw-r--r-- 1 root  root    126 мар 28 07:49 exec_demo.txt
+-rw-r--r-- 1 root  root    177 апр  4 09:42 exec.txt
+-rw-r--r-- 1 root  root   1047 апр  4 09:39 file.txt
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 .git
+-rw-rw-r-- 1 uname uname   150 мар 26 17:48 .gitignore
+-rw-r--r-- 1 root  root  16384 апр  4 09:49 lab_report_2025-04-04_09-48-46.log
+drwxrwxr-x 2 uname uname  4096 мар 26 17:48 lb1
+-rwxrwxr-x 1 uname uname 11052 мар 26 17:48 logger-lb1.sh
+-rwxrwxr-x 1 uname uname  8040 апр  4 09:32 logger-lb2.sh
+-rw-r--r-- 1 root  root      0 апр  4 09:49 nohup.out
+-rw-r--r-- 1 root  root      0 апр  4 09:39 out.txt
+-rw-r--r-- 1 root  root   1289 апр  4 09:39 processes_after.txt
+-rw-r--r-- 1 root  root   1548 апр  4 09:39 program_out.log
+drwxrwxr-x 3 uname uname  4096 апр  4 09:48 Romanov_Egor_lb2
+-rw-r--r-- 1 root  root   5410 апр  4 09:39 script_output.log
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 src
+-rwxrwxr-x 1 uname uname    36 мар 26 17:48 start.sh
+-rw-r--r-- 1 root  root    189 мар 27 23:31 testfile_clone.txt
+-rw-r--r-- 1 root  root     67 мар 27 23:21 testfile_exec.txt
+-rw-r--r-- 1 root  root  12245 мар 30 20:41 процессы_дочернего.log
+-rw-r--r-- 1 root  root  11631 апр  4 09:49 процессы_родителя.log
+
+Запуск execvp:
+Дочерний процесс [19755] запускает execvp...
+Использует PATH для поиска исполняемого файла
+итого 136
+drwxrwxr-x 6 uname uname  4096 апр  4 09:49 .
+drwxrwxr-x 3 uname uname  4096 мар 26 17:48 ..
+-rwxrwxr-x 1 uname uname   437 мар 28 09:22 cleaner.sh
+-rwxrwxr-x 1 uname uname   673 мар 28 09:22 compiller.sh
+-rw-r--r-- 1 root  root    126 мар 28 07:49 exec_demo.txt
+-rw-r--r-- 1 root  root    177 апр  4 09:42 exec.txt
+-rw-r--r-- 1 root  root   1047 апр  4 09:39 file.txt
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 .git
+-rw-rw-r-- 1 uname uname   150 мар 26 17:48 .gitignore
+-rw-r--r-- 1 root  root  16384 апр  4 09:49 lab_report_2025-04-04_09-48-46.log
+drwxrwxr-x 2 uname uname  4096 мар 26 17:48 lb1
+-rwxrwxr-x 1 uname uname 11052 мар 26 17:48 logger-lb1.sh
+-rwxrwxr-x 1 uname uname  8040 апр  4 09:32 logger-lb2.sh
+-rw-r--r-- 1 root  root      0 апр  4 09:49 nohup.out
+-rw-r--r-- 1 root  root      0 апр  4 09:39 out.txt
+-rw-r--r-- 1 root  root   1289 апр  4 09:39 processes_after.txt
+-rw-r--r-- 1 root  root   1548 апр  4 09:39 program_out.log
+drwxrwxr-x 3 uname uname  4096 апр  4 09:48 Romanov_Egor_lb2
+-rw-r--r-- 1 root  root   5410 апр  4 09:39 script_output.log
+drwxrwxr-x 8 uname uname  4096 мар 26 17:48 src
+-rwxrwxr-x 1 uname uname    36 мар 26 17:48 start.sh
+-rw-r--r-- 1 root  root    189 мар 27 23:31 testfile_clone.txt
+-rw-r--r-- 1 root  root     67 мар 27 23:21 testfile_exec.txt
+-rw-r--r-- 1 root  root  12245 мар 30 20:41 процессы_дочернего.log
+-rw-r--r-- 1 root  root  11631 апр  4 09:49 процессы_родителя.log
+
+Запуск execve (с пользовательским окружением):
+Дочерний процесс [19757] запускает execve (с пользовательским окружением)...
+total 136
+drwxrwxr-x 6 uname uname  4096 Apr  4 09:49 .
+drwxrwxr-x 3 uname uname  4096 Mar 26 17:48 ..
+drwxrwxr-x 8 uname uname  4096 Mar 26 17:48 .git
+-rw-rw-r-- 1 uname uname   150 Mar 26 17:48 .gitignore
+drwxrwxr-x 3 uname uname  4096 Apr  4 09:48 Romanov_Egor_lb2
+-rwxrwxr-x 1 uname uname   437 Mar 28 09:22 cleaner.sh
+-rwxrwxr-x 1 uname uname   673 Mar 28 09:22 compiller.sh
+-rw-r--r-- 1 root  root    177 Apr  4 09:42 exec.txt
+-rw-r--r-- 1 root  root    126 Mar 28 07:49 exec_demo.txt
+-rw-r--r-- 1 root  root   1047 Apr  4 09:39 file.txt
+-rw-r--r-- 1 root  root  16384 Apr  4 09:49 lab_report_2025-04-04_09-48-46.log
+drwxrwxr-x 2 uname uname  4096 Mar 26 17:48 lb1
+-rwxrwxr-x 1 uname uname 11052 Mar 26 17:48 logger-lb1.sh
+-rwxrwxr-x 1 uname uname  8040 Apr  4 09:32 logger-lb2.sh
+-rw-r--r-- 1 root  root      0 Apr  4 09:49 nohup.out
+-rw-r--r-- 1 root  root      0 Apr  4 09:39 out.txt
+-rw-r--r-- 1 root  root   1289 Apr  4 09:39 processes_after.txt
+-rw-r--r-- 1 root  root   1548 Apr  4 09:39 program_out.log
+-rw-r--r-- 1 root  root   5410 Apr  4 09:39 script_output.log
+drwxrwxr-x 8 uname uname  4096 Mar 26 17:48 src
+-rwxrwxr-x 1 uname uname    36 Mar 26 17:48 start.sh
+-rw-r--r-- 1 root  root    189 Mar 27 23:31 testfile_clone.txt
+-rw-r--r-- 1 root  root     67 Mar 27 23:21 testfile_exec.txt
+-rw-r--r-- 1 root  root  12245 Mar 30 20:41 процессы_дочернего.log
+-rw-r--r-- 1 root  root  11631 Apr  4 09:49 процессы_родителя.log
+
+Все дочерние процессы завершены.
+
+
+(2025-04-04 09:49:19) ЗАДАНИЕ 2.4 (Скрипт)
+(2025-04-04 09:49:19) Запуск скрипта ./src/2/2.4/2.4.sh.
+
+>>> СОСТОЯНИЕ out.txt ДО ВЫПОЛНЕНИЯ <<<
+----------------------------------------
+Файл out.txt пуст.
+----------------------------------------
+
+>>> СОСТОЯНИЕ out.txt ПОСЛЕ ВЫПОЛНЕНИЯ <<<
+----------------------------------------
+------------------------
+[2025-04-04 09:49:19] Запуск программы: src/2/2.4/2.4-a
+Процессы до создания процесса-сына:
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19768   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+0 S     0   19770   19768  0  80   0 -   670 do_wai pts/2    00:00:00 2.4-a
+0 S     0   19771   19770  0  80   0 -   700 do_wai pts/2    00:00:00 sh
+4 R     0   19772   19771 99  80   0 -  5630 -      pts/2    00:00:00 ps
+Процесс-отец: PID = 19770, PID сына = 19773
+Процессы после создания процесса-сына, но до его завершения:
+Процесс-сын: PID = 19773
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19768   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+0 S     0   19770   19768  0  80   0 -   670 do_wai pts/2    00:00:00 2.4-a
+1 R     0   19773   19770  0  80   0 -   670 -      pts/2    00:00:00 2.4-a
+0 S     0   19774   19770  0  80   0 -   700 do_wai pts/2    00:00:00 sh
+4 R     0   19775   19774  0  80   0 -  5630 -      pts/2    00:00:00 ps
+Процесс-сын завершен
+Процессы после завершения процесса-сына:
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19768   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+0 S     0   19770   19768  0  80   0 -   670 do_wai pts/2    00:00:00 2.4-a
+0 S     0   19794   19770  0  80   0 -   700 do_wai pts/2    00:00:00 sh
+4 R     0   19795   19794  0  80   0 -  5630 -      pts/2    00:00:00 ps
+Процесс-сын завершился с кодом: 0
+Процесс-отец завершен
+Состояние процессов после запуска src/2/2.4/2.4-a:
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19768   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+4 R     0   19796   19768  0  80   0 -  5630 -      pts/2    00:00:00 ps
+------------------------
+------------------------
+[2025-04-04 09:49:22] Запуск программы: src/2/2.4/2.4-b
+Запуск программы. Основной процесс (PID: 19798, PPID: 19768).
+Процесс-отец (PID: 19798) создал процесс-сына (PID: 19799).
+Процесс-сын (PID: 19799, PPID: 19798) запущен.
+
+Состояние процессов перед завершением отца:
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19768   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+0 S     0   19798   19768 95  80   0 -   670 do_wai pts/2    00:00:00 2.4-b
+1 R     0   19799   19798 99  80   0 -   670 -      pts/2    00:00:00 2.4-b
+0 S     0   19800   19798  0  80   0 -   700 do_wai pts/2    00:00:00 sh
+4 R     0   19801   19800  0  80   0 -  5630 -      pts/2    00:00:00 ps
+Процесс-отец (PID: 19798) завершается, не ожидая завершения процесса-сына.
+Состояние процессов после запуска src/2/2.4/2.4-b:
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19768   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+1 R     0   19799    2071 99  80   0 -   670 -      pts/2    00:00:00 2.4-b
+4 R     0   19802   19768  0  80   0 -  5630 -      pts/2    00:00:00 ps
+------------------------
+------------------------
+[2025-04-04 09:49:22] Запуск программы: src/2/2.4/2.4-c
+Процесс-отец (PID: 19804) не ожидает завершения процесса-сына.
+Процесс-сын (PID: 19805) запущен.
+Процесс-сын еще не завершился, процесс-отец продолжает работу.
+Процесс-сын (PID: 19805) завершен.
+
+Состояние процессов после завершения сына (зомби):
+    PID    PPID STAT COMMAND          SIZE
+  19134   19133 Ss+  logger-lb2.sh     568
+  19768   19134 S+   bash              436
+  19799    2071 R+   2.4-b             356
+  19804   19768 S+   2.4-c             356
+  19805   19804 Z+   2.4-c               0
+  19806   19804 S+   sh                364
+  19807   19806 R+   ps               1988
+Процесс-отец (PID: 19804) завершен.
+Состояние процессов после запуска src/2/2.4/2.4-c:
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0   19134   19133  0  80   0 -  4685 do_wai pts/2    00:00:00 logger-lb2.sh
+0 S     0   19768   19134  0  80   0 -  4652 do_wai pts/2    00:00:00 bash
+1 R     0   19799    2071 99  80   0 -   670 -      pts/2    00:00:00 2.4-b
+4 R     0   19808   19768  0  80   0 -  5630 -      pts/2    00:00:00 ps
+------------------------
+----------------------------------------
+
+
+(2025-04-04 09:49:22) ЗАДАНИЕ 3.1 
+(2025-04-04 09:49:22) >>> root@cpname$ ./src/3/3.1/3.1-father <<<
+Ошибка execl: No such file or directory
+Father: Отправляем SIGINT процессу lb2/3/3.1/3.1-son1 (PID: 19826)
+  UID     PID          PENDING          BLOCKED          IGNORED           CAUGHT STAT TTY        TIME COMMAND
+    0   19129 0000000000000000 0000000000000000 0000000000301000 00000000080b6a07 S+   pts/0      0:00 sudo ./logger-lb2.sh
+    0   19130 0000000000000000 0000000000000000 0000000000301000 0000000000096a07 Ss   pts/1      0:00 sudo ./logger-lb2.sh
+    0   19131 0000000000000000 0000000000010000 0000000000000004 0000000000010002 S+   pts/1      0:00 /bin/bash ./logger-lb2.sh
+    0   19133 0000000000000000 fffffffe7ffbfeff 0000000000000000 0000000000000000 S+   pts/1      0:00 script -a -q -c ./logger-lb2.sh lab_report_2025-04-04_09-48-46.log
+    0   19134 0000000000000000 0000000000000002 0000000000000004 0000000000010000 Ss+  pts/2      0:00 /bin/bash ./logger-lb2.sh
+    0   19799 0000000000000000 0000000000000000 0000000000000000 0000000000000000 R+   pts/2      0:00 ./src/2/2.4/2.4-b
+    0   19821 0000000000000000 0000000000010000 0000000000000000 0000000000010002 S+   pts/2      0:00 /bin/bash ./logger-lb2.sh
+    0   19823 0000000000000000 0000000000010000 0000000000000006 0000000000000000 S+   pts/2      0:00 ./src/3/3.1/3.1-father
+    0   19826 0000000000000000 0000000000000000 0000000000000000 0000000000000000 Z+   pts/2      0:00 [3.1-father] <defunct>
+Ошибка execl: No such file or directory
+Father: Отправляем SIGINT процессу lb2/3/3.1/3.1-son2 (PID: 19839)
+  UID     PID          PENDING          BLOCKED          IGNORED           CAUGHT STAT TTY        TIME COMMAND
+    0   19129 0000000000000000 0000000000000000 0000000000301000 00000000080b6a07 S+   pts/0      0:00 sudo ./logger-lb2.sh
+    0   19130 0000000000000000 0000000000000000 0000000000301000 0000000000096a07 Ss   pts/1      0:00 sudo ./logger-lb2.sh
+    0   19131 0000000000000000 0000000000010000 0000000000000004 0000000000010002 S+   pts/1      0:00 /bin/bash ./logger-lb2.sh
+    0   19133 0000000000000000 fffffffe7ffbfeff 0000000000000000 0000000000000000 S+   pts/1      0:00 script -a -q -c ./logger-lb2.sh lab_report_2025-04-04_09-48-46.log
+    0   19134 0000000000000000 0000000000000002 0000000000000004 0000000000010000 Ss+  pts/2      0:00 /bin/bash ./logger-lb2.sh
+    0   19799 0000000000000000 0000000000000000 0000000000000000 0000000000000000 R+   pts/2      0:00 ./src/2/2.4/2.4-b
+    0   19821 0000000000000000 0000000000010000 0000000000000000 0000000000010002 S+   pts/2      0:00 /bin/bash ./logger-lb2.sh
+    0   19823 0000000000000000 0000000000010000 0000000000000006 0000000000000000 S+   pts/2      0:00 ./src/3/3.1/3.1-father
+    0   19839 0000000000000000 0000000000000000 0000000000000000 0000000000000000 Z+   pts/2      0:00 [3.1-father] <defunct>
+Ошибка execl: No such file or directory
+Father: Отправляем SIGINT процессу lb2/3/3.1/3.1-son3 (PID: 19844)
+  UID     PID          PENDING          BLOCKED          IGNORED           CAUGHT STAT TTY        TIME COMMAND
+    0   19129 0000000000000000 0000000000000000 0000000000301000 00000000080b6a07 S+   pts/0      0:00 sudo ./logger-lb2.sh
+    0   19130 0000000000000000 0000000000000000 0000000000301000 0000000000096a07 Ss   pts/1      0:00 sudo ./logger-lb2.sh
+    0   19131 0000000000000000 0000000000010000 0000000000000004 0000000000010002 S+   pts/1      0:00 /bin/bash ./logger-lb2.sh
+    0   19133 0000000000000000 fffffffe7ffbfeff 0000000000000000 0000000000000000 S+   pts/1      0:00 script -a -q -c ./logger-lb2.sh lab_report_2025-04-04_09-48-46.log
+    0   19134 0000000000000000 0000000000000002 0000000000000004 0000000000010000 Ss+  pts/2      0:00 /bin/bash ./logger-lb2.sh
+    0   19799 0000000000000000 0000000000000000 0000000000000000 0000000000000000 R+   pts/2      0:01 ./src/2/2.4/2.4-b
+    0   19821 0000000000000000 0000000000010000 0000000000000000 0000000000010002 S+   pts/2      0:00 /bin/bash ./logger-lb2.sh
+    0   19823 0000000000000000 0000000000010000 0000000000000006 0000000000000000 S+   pts/2      0:00 ./src/3/3.1/3.1-father
+    0   19844 0000000000000000 0000000000000000 0000000000000000 0000000000000000 Z+   pts/2      0:00 [3.1-father] <defunct>
+Father: Все дочерние процессы завершены.
+
+
+(2025-04-04 09:49:23) ЗАДАНИЕ 3.2 
+(2025-04-04 09:49:23) >>> root@cpname$ ./src/3/3.2/3.2-father <<<
+Параметры родительского процесса: pid=19855 ppid=19854
+
+Son parameters: pid=19859, ppid=19855
+
+Son parameters: pid=19858, ppid=19855
+
+Son parameters: pid=19856, ppid=19855
+
+Son parameters: pid=19857, ppid=19855
+1) Дочерний процесс с PID = 19856 завершился со статусом 0
+2) Дочерний процесс с PID = 19857 завершился со статусом 256
+3) Дочерний процесс с PID = 19858 завершился со статусом 65280
+4) Дочерний процесс с PID = 19859 завершился со статусом 1792
+Процесс с pid = 19856 завершился корректно.
+Процесс с pid = 19857 завершился корректно.
+Процесс с pid = 19858 завершился корректно.
+Процесс с pid = 19859 завершился корректно.
+
+
+(2025-04-04 09:49:23) ЗАДАНИЕ 4 (Скрипт)
+(2025-04-04 09:49:23) Запуск скрипта ./src/4/4.sh.
+
+>>> СОСТОЯНИЕ out.txt ДО ВЫПОЛНЕНИЯ <<<
+----------------------------------------
+Файл out.txt пуст.
+----------------------------------------
+
+Анализ нитей и ресурсов процесса ./4
+
+Найден процесс с PID: 19868
+
+1. Информация о нитях процесса:
+
+UID          PID    PPID     LWP  C NLWP STIME TTY          TIME CMD
+root       19868   19867   19868 69    7 09:49 pts/2    00:00:03 ./src/4/4
+root       19868   19867   19869 91    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19870 85    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19871 81    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19872 78    7 09:49 pts/2    00:00:03 ./src/4/4
+root       19868   19867   19873 85    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19875 80    7 09:49 pts/2    00:00:04 ./src/4/4
+
+
+2. Расширенная информация о нитях:
+
+    TID   UID   GID COMMAND             LWP %CPU PSR  NI PRI STAT START     ELAPSED     TIME CMD
+  19868     0     0 4                 19868 67.7   5   0  19 Rl+  09:49       00:05 00:00:03 ./src/4/4
+  19869     0     0 4                 19869 88.7   1   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19870     0     0 4                 19870 85.7   0   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19871     0     0 4                 19871 82.6   2   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19872     0     0 4                 19872 77.0   1   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19873     0     0 4                 19873 84.4   4   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19875     0     0 4                 19875 79.0   3   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+
+Разделяемые ресурсы нитями:
+
+3. Наследуемые параметры процесса:
+
+    PID    PPID   UID   GID COMMAND
+  19868   19867     0     0 4
+
+
+4. Файловые дескрипторы
+
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+4       19868 root  cwd    DIR    8,2     4096 1066381 /home/uname/lb2/os
+4       19868 root  rtd    DIR    8,2     4096       2 /
+4       19868 root  txt    REG    8,2    16960 1069187 /home/uname/lb2/os/src/4/4
+4       19868 root  mem    REG    8,2  2125328 1322193 /usr/lib/x86_64-linux-gnu/libc.so.6
+4       19868 root  mem    REG    8,2   236616 1322019 /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+4       19868 root    0r   CHR    1,3      0t0       5 /dev/null
+4       19868 root    1w   REG    8,2     1590 1066854 /home/uname/lb2/os/program_out.log
+4       19868 root    2u   CHR  136,2      0t0       5 /dev/pts/2
+
+
+5. Памяти процесса (/proc/19868/maps):
+
+62e7e92dc000-62e7e92dd000 r--p 00000000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92dd000-62e7e92de000 r-xp 00001000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92de000-62e7e92df000 r--p 00002000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92df000-62e7e92e0000 r--p 00002000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92e0000-62e7e92e1000 rw-p 00003000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e80d301000-62e80d322000 rw-p 00000000 00:00 0                          [heap]
+7665d1aff000-7665d1c00000 rw-p 00000000 00:00 0 
+7665d4000000-7665d4021000 rw-p 00000000 00:00 0 
+7665d4021000-7665d8000000 ---p 00000000 00:00 0 
+7665d9cfc000-7665d9dfd000 rw-p 00000000 00:00 0 
+7665d9dfd000-7665d9dfe000 ---p 00000000 00:00 0 
+7665d9dfe000-7665da5fe000 rw-p 00000000 00:00 0 
+7665da5fe000-7665da5ff000 ---p 00000000 00:00 0 
+7665da5ff000-7665dadff000 rw-p 00000000 00:00 0 
+7665dadff000-7665dae00000 ---p 00000000 00:00 0 
+7665dae00000-7665db600000 rw-p 00000000 00:00 0 
+7665db600000-7665db628000 r--p 00000000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db628000-7665db7b0000 r-xp 00028000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db7b0000-7665db7ff000 r--p 001b0000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db7ff000-7665db803000 r--p 001fe000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db803000-7665db805000 rw-p 00202000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db805000-7665db812000 rw-p 00000000 00:00 0 
+7665db865000-7665db969000 rw-p 00000000 00:00 0 
+7665db977000-7665db979000 rw-p 00000000 00:00 0 
+7665db979000-7665db97d000 r--p 00000000 00:00 0                          [vvar]
+7665db97d000-7665db97f000 r-xp 00000000 00:00 0                          [vdso]
+7665db97f000-7665db980000 r--p 00000000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db980000-7665db9ab000 r-xp 00001000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db9ab000-7665db9b5000 r--p 0002c000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db9b5000-7665db9b7000 r--p 00036000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db9b7000-7665db9b9000 rw-p 00038000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffd10dc5000-7ffd10de6000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+Попробуем удалить поток процесса с наибольшим TID
+Удаляем TID: 19875
+Нить с TID 19875 удалена.
+./src/4/4.sh: строка 12: 19868 Убито              ./src/4/4 > "$program_file"
+
+>>> СОСТОЯНИЕ out.txt ПОСЛЕ ВЫПОЛНЕНИЯ <<<
+----------------------------------------
+Поток, созданный Pthread 2 (TID: 19870)
+Созданый через clone поток 5 (TID: 19873)
+Поток, созданный Pthread 3 (TID: 19871)
+Поток, созданный Pthread 1 (TID: 19869)
+Созданый через clone поток 4 (TID: 19872)
+Созданый через clone поток 6 (TID: 19875)
+Поток, созданный Pthread 2 (TID: 19870)
+Поток, созданный Pthread 1 (TID: 19869)
+Поток, созданный Pthread 3 (TID: 19871)
+Созданый через clone поток 5 (TID: 19873)
+Созданый через clone поток 4 (TID: 19872)
+Созданый через clone поток 6 (TID: 19875)
+Поток, созданный Pthread 2 (TID: 19870)
+Поток, созданный Pthread 1 (TID: 19869)
+Созданый через clone поток 5 (TID: 19873)
+Поток, созданный Pthread 3 (TID: 19871)
+Созданый через clone поток 4 (TID: 19872)
+Созданый через clone поток 6 (TID: 19875)
+Поток, созданный Pthread 1 (TID: 19869)
+Поток, созданный Pthread 2 (TID: 19870)
+Созданый через clone поток 5 (TID: 19873)
+Поток, созданный Pthread 3 (TID: 19871)
+Созданый через clone поток 6 (TID: 19875)
+Созданый через clone поток 4 (TID: 19872)
+Поток, созданный Pthread 1 (TID: 19869)
+Созданый через clone поток 5 (TID: 19873)
+Поток, созданный Pthread 3 (TID: 19871)
+Поток, созданный Pthread 2 (TID: 19870)
+Созданый через clone поток 6 (TID: 19875)
+
+
+Анализ нитей и ресурсов процесса ./4
+
+Найден процесс с PID: 19868
+
+1. Информация о нитях процесса:
+
+UID          PID    PPID     LWP  C NLWP STIME TTY          TIME CMD
+root       19868   19867   19868 69    7 09:49 pts/2    00:00:03 ./src/4/4
+root       19868   19867   19869 91    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19870 85    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19871 81    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19872 78    7 09:49 pts/2    00:00:03 ./src/4/4
+root       19868   19867   19873 85    7 09:49 pts/2    00:00:04 ./src/4/4
+root       19868   19867   19875 80    7 09:49 pts/2    00:00:04 ./src/4/4
+
+
+2. Расширенная информация о нитях:
+
+    TID   UID   GID COMMAND             LWP %CPU PSR  NI PRI STAT START     ELAPSED     TIME CMD
+  19868     0     0 4                 19868 67.7   5   0  19 Rl+  09:49       00:05 00:00:03 ./src/4/4
+  19869     0     0 4                 19869 88.7   1   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19870     0     0 4                 19870 85.7   0   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19871     0     0 4                 19871 82.6   2   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19872     0     0 4                 19872 77.0   1   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19873     0     0 4                 19873 84.4   4   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+  19875     0     0 4                 19875 79.0   3   0  19 Rl+  09:49       00:05 00:00:04 ./src/4/4
+
+Разделяемые ресурсы нитями:
+
+3. Наследуемые параметры процесса:
+
+    PID    PPID   UID   GID COMMAND
+  19868   19867     0     0 4
+
+
+4. Файловые дескрипторы
+
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+4       19868 root  cwd    DIR    8,2     4096 1066381 /home/uname/lb2/os
+4       19868 root  rtd    DIR    8,2     4096       2 /
+4       19868 root  txt    REG    8,2    16960 1069187 /home/uname/lb2/os/src/4/4
+4       19868 root  mem    REG    8,2  2125328 1322193 /usr/lib/x86_64-linux-gnu/libc.so.6
+4       19868 root  mem    REG    8,2   236616 1322019 /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+4       19868 root    0r   CHR    1,3      0t0       5 /dev/null
+4       19868 root    1w   REG    8,2     1590 1066854 /home/uname/lb2/os/program_out.log
+4       19868 root    2u   CHR  136,2      0t0       5 /dev/pts/2
+
+
+5. Памяти процесса (/proc/19868/maps):
+
+62e7e92dc000-62e7e92dd000 r--p 00000000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92dd000-62e7e92de000 r-xp 00001000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92de000-62e7e92df000 r--p 00002000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92df000-62e7e92e0000 r--p 00002000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e7e92e0000-62e7e92e1000 rw-p 00003000 08:02 1069187                    /home/uname/lb2/os/src/4/4
+62e80d301000-62e80d322000 rw-p 00000000 00:00 0                          [heap]
+7665d1aff000-7665d1c00000 rw-p 00000000 00:00 0 
+7665d4000000-7665d4021000 rw-p 00000000 00:00 0 
+7665d4021000-7665d8000000 ---p 00000000 00:00 0 
+7665d9cfc000-7665d9dfd000 rw-p 00000000 00:00 0 
+7665d9dfd000-7665d9dfe000 ---p 00000000 00:00 0 
+7665d9dfe000-7665da5fe000 rw-p 00000000 00:00 0 
+7665da5fe000-7665da5ff000 ---p 00000000 00:00 0 
+7665da5ff000-7665dadff000 rw-p 00000000 00:00 0 
+7665dadff000-7665dae00000 ---p 00000000 00:00 0 
+7665dae00000-7665db600000 rw-p 00000000 00:00 0 
+7665db600000-7665db628000 r--p 00000000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db628000-7665db7b0000 r-xp 00028000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db7b0000-7665db7ff000 r--p 001b0000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db7ff000-7665db803000 r--p 001fe000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db803000-7665db805000 rw-p 00202000 08:02 1322193                    /usr/lib/x86_64-linux-gnu/libc.so.6
+7665db805000-7665db812000 rw-p 00000000 00:00 0 
+7665db865000-7665db969000 rw-p 00000000 00:00 0 
+7665db977000-7665db979000 rw-p 00000000 00:00 0 
+7665db979000-7665db97d000 r--p 00000000 00:00 0                          [vvar]
+7665db97d000-7665db97f000 r-xp 00000000 00:00 0                          [vdso]
+7665db97f000-7665db980000 r--p 00000000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db980000-7665db9ab000 r-xp 00001000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db9ab000-7665db9b5000 r--p 0002c000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db9b5000-7665db9b7000 r--p 00036000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7665db9b7000-7665db9b9000 rw-p 00038000 08:02 1322019                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffd10dc5000-7ffd10de6000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+Попробуем удалить поток процесса с наибольшим TID
+Удаляем TID: 19875
+Нить с TID 19875 удалена.
+----------------------------------------
+
+
+(2025-04-04 09:49:29) ЗАДАНИЕ 5.1(table) 
+(2025-04-04 09:49:29) >>> root@cpname$ ./src/5/5.1/5.1-table <<<
+Запускаем процесс программно...
+Текущий процесс:
+PID: 20011 Nice level: 0 | Policy: SCHED_OTHER
+
+Запускаем процесс из таблицы процессов...
+Запущен процесс ls с PID: 20012
+PID: 20012 Nice level: 0 | Policy: SCHED_OTHER
+cleaner.sh
+compiller.sh
+exec_demo.txt
+exec.txt
+file.txt
+lab_report_2025-04-04_09-48-46.log
+lb1
+logger-lb1.sh
+logger-lb2.sh
+nohup.out
+out.txt
+processes_after.txt
+program_out.log
+Romanov_Egor_lb2
+script_output.log
+src
+start.sh
+testfile_clone.txt
+testfile_exec.txt
+процессы_дочернего.log
+процессы_родителя.log
+
+
+(2025-04-04 09:49:29) ЗАДАНИЕ 5.1 (Скрипт)
+(2025-04-04 09:49:29) Запуск скрипта ./src/5/5.1/5.1.sh.
+Запуск теста: Одинаковые значения nice
+Результаты теста: Одинаковые значения nice
+Процесс src/5/5.1/5.1-1 выполнился 220454 раз (nice=0) - 24,34%
+Процесс src/5/5.1/5.1-2 выполнился 231523 раз (nice=0) - 25,56%
+Процесс src/5/5.1/5.1-3 выполнился 232215 раз (nice=0) - 25,64%
+Процесс src/5/5.1/5.1-4 выполнился 221640 раз (nice=0) - 24,47%
+Запуск теста: Разные значения nice
+Результаты теста: Разные значения nice
+Процесс src/5/5.1/5.1-1 выполнился 828253 раз (nice=-20) - 88,66%
+Процесс src/5/5.1/5.1-2 выполнился 94546 раз (nice=-10) - 10,12%
+Процесс src/5/5.1/5.1-3 выполнился 9706 раз (nice=0) - 1,04%
+Процесс src/5/5.1/5.1-4 выполнился 1697 раз (nice=10) - 0,18%
+
+
+(2025-04-04 09:49:40) ЗАДАНИЕ 5.2 
+(2025-04-04 09:49:40) >>> root@cpname$ ./src/5/5.2/5.2 <<<
+Сравнение и изменение приоритетов системного и пользовательского процессов
+
+------Системный процесс------
+Системный процесс        (PID: 15): Текущий приоритет (значение nice): 0
+
+Пытаемся изменить приоритет системного процесса (PID: 15) увеличим на  10...
+Приоритет системного процесса изменен.
+Приоритет системного процесса после изменения (PID: 15): Текущий приоритет (значение nice): 10
+
+------Пользовательский процесс------
+Пользовательский процесс до изменения приоритета (PID: 20205): Текущий приоритет (значение nice): 0
+
+Пытаемся установить приоритет на -10...
+Пользовательский процесс после изменения приоритета (PID: 20205): Текущий приоритет (значение nice): -10
+
+=== Завершение программы ===
+
+
+(2025-04-04 09:49:40) ЗАДАНИЕ 5.3.1 (Скрипт)
+(2025-04-04 09:49:40) Запуск скрипта ./src/5/5.3/5.3.1.sh.
+Запуск процессов с одинаковыми приоритетами (10)...
+Запуск src/5/5.3/5.3-1 с приоритетом 10
+Запуск src/5/5.3/5.3-2 с приоритетом 10
+Запуск src/5/5.3/5.3-3 с приоритетом 10
+++ _1_ ++ PID: 20216 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _1_ ++ PID: 20216 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _1_ ++ PID: 20216 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _1_ ++ PID: 20216 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _1_ ++ PID: 20216 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _2_ ++ PID: 20218 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _2_ ++ PID: 20218 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _2_ ++ PID: 20218 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _2_ ++ PID: 20218 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _2_ ++ PID: 20218 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _3_ ++ PID: 20220 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _3_ ++ PID: 20220 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _3_ ++ PID: 20220 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _3_ ++ PID: 20220 ++ SCHED_FIFO ++ Приоритет: 10
+
+++ _3_ ++ PID: 20220 ++ SCHED_FIFO ++ Приоритет: 10
+
+
+
+(2025-04-04 09:49:52) ЗАДАНИЕ 5.3.2 
+(2025-04-04 09:49:52) >>> root@cpname$ sudo taskset -c 0 ./src/5/5.3/5.3.2 <<<
+Получение границ приоритетов...
+Название политики	Минимальный приоритет	Максимальный приоритет
+SCHED_FIFO            	         1		        99
+SCHED_RR              	         1		        99
+SCHED_OTHER           	         0		         0
+
+
+(2025-04-04 09:49:52) ЗАДАНИЕ 5.3.3 (Скрипт)
+(2025-04-04 09:49:52) Запуск скрипта ./src/5/5.3/5.3.3.sh.
+Запуск тестов с разными приоритетами...
+Запуск src/5/5.3/5.3-1 с приоритетом 52
+Запуск src/5/5.3/5.3-2 с приоритетом 14
+Запуск src/5/5.3/5.3-3 с приоритетом 94
+++ _3_ ++ PID: 20353 ++ SCHED_FIFO ++ Приоритет: 94
+
+++ _3_ ++ PID: 20353 ++ SCHED_FIFO ++ Приоритет: 94
+
+++ _3_ ++ PID: 20353 ++ SCHED_FIFO ++ Приоритет: 94
+
+++ _3_ ++ PID: 20353 ++ SCHED_FIFO ++ Приоритет: 94
+
+++ _3_ ++ PID: 20353 ++ SCHED_FIFO ++ Приоритет: 94
+
+++ _1_ ++ PID: 20356 ++ SCHED_FIFO ++ Приоритет: 52
+
+++ _1_ ++ PID: 20356 ++ SCHED_FIFO ++ Приоритет: 52
+
+++ _1_ ++ PID: 20356 ++ SCHED_FIFO ++ Приоритет: 52
+
+++ _1_ ++ PID: 20356 ++ SCHED_FIFO ++ Приоритет: 52
+
+++ _1_ ++ PID: 20356 ++ SCHED_FIFO ++ Приоритет: 52
+
+++ _2_ ++ PID: 20357 ++ SCHED_FIFO ++ Приоритет: 14
+
+++ _2_ ++ PID: 20357 ++ SCHED_FIFO ++ Приоритет: 14
+
+++ _2_ ++ PID: 20357 ++ SCHED_FIFO ++ Приоритет: 14
+
+++ _2_ ++ PID: 20357 ++ SCHED_FIFO ++ Приоритет: 14
+
+++ _2_ ++ PID: 20357 ++ SCHED_FIFO ++ Приоритет: 14
+
+
+
+(2025-04-04 09:50:03) ЗАДАНИЕ 5.4.1 (Скрипт)
+(2025-04-04 09:50:03) Запуск скрипта ./src/5/5.4/5.4.1.sh.
+Запуск тестов с одинаковыми приоритетами (10)...
+Запуск src/5/5.4/5.4-1 с приоритетом 10
+Запуск src/5/5.4/5.4-2 с приоритетом 10
+Запуск src/5/5.4/5.4-3 с приоритетом 10
+Запуск src/5/5.4/5.4-4 с приоритетом 10
+++ _1_ ++ PID: 20505 ++ SCHED_RR ++ Приоритет: 10
+
+++ _1_ ++ PID: 20505 ++ SCHED_RR ++ Приоритет: 10
+
+++ _3_ ++ PID: 20509 ++ SCHED_RR ++ Приоритет: 10
+
+++ _4_ ++ PID: 20504 ++ SCHED_RR ++ Приоритет: 10
+
+++ _2_ ++ PID: 20507 ++ SCHED_RR ++ Приоритет: 10
+
+++ _1_ ++ PID: 20505 ++ SCHED_RR ++ Приоритет: 10
+
+++ _3_ ++ PID: 20509 ++ SCHED_RR ++ Приоритет: 10
+
+++ _4_ ++ PID: 20504 ++ SCHED_RR ++ Приоритет: 10
+
+++ _2_ ++ PID: 20507 ++ SCHED_RR ++ Приоритет: 10
+
+++ _1_ ++ PID: 20505 ++ SCHED_RR ++ Приоритет: 10
+
+++ _2_ ++ PID: 20507 ++ SCHED_RR ++ Приоритет: 10
+
+++ _3_ ++ PID: 20509 ++ SCHED_RR ++ Приоритет: 10
+
+++ _4_ ++ PID: 20504 ++ SCHED_RR ++ Приоритет: 10
+
+++ _2_ ++ PID: 20507 ++ SCHED_RR ++ Приоритет: 10
+
+++ _3_ ++ PID: 20509 ++ SCHED_RR ++ Приоритет: 10
+
+++ _1_ ++ PID: 20505 ++ SCHED_RR ++ Приоритет: 10
+
+++ _2_ ++ PID: 20507 ++ SCHED_RR ++ Приоритет: 10
+
+++ _3_ ++ PID: 20509 ++ SCHED_RR ++ Приоритет: 10
+
+
+
+(2025-04-04 09:50:19) ЗАДАНИЕ 5.4.2 
+(2025-04-04 09:50:19) >>> root@cpname$ sudo ./src/5/5.4/5.4.2-q <<<
+процесс: pid=20712, ppid=20711
+Полученное значение кванта: 0.100000000 сек
+
+
+(2025-04-04 09:50:19) ЗАДАНИЕ 5.4.3 (Скрипт)
+(2025-04-04 09:50:19) Запуск скрипта ./src/5/5.4/5.4.3.sh.
+Запуск тестов с разными приоритетами...
+Запуск src/5/5.4/5.4-1 с приоритетом 95
+Запуск src/5/5.4/5.4-2 с приоритетом 95
+Запуск src/5/5.4/5.4-3 с приоритетом 10
+Запуск src/5/5.4/5.4-4 с приоритетом 40
+++ _4_ ++ PID: 20725 ++ SCHED_RR ++ Приоритет: 40
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+++ _2_ ++ PID: 20731 ++ SCHED_RR ++ Приоритет: 95
+
+++ _1_ ++ PID: 20727 ++ SCHED_RR ++ Приоритет: 95
+
+
+
+(2025-04-04 09:50:34) ЗАДАНИЕ 5.4.4 (Скрипт)
+(2025-04-04 09:50:34) Запуск скрипта ./src/5/5.4/5.4.4/5.4.4.sh.
+Запуск тестов с sched_yeld...
+Запуск src/5/5.4/5.4.4/5.4.4-1 с приоритетом 10
+Запуск src/5/5.4/5.4.4/5.4.4-2 с приоритетом 10
+Запуск src/5/5.4/5.4.4/5.4.4-3 с приоритетом 10
+++ _1_ ++ 20917 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _1_ вызов: sched_yield
+
+++ _3_ ++ 20921 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _3_ вызов: sched_yield
+
+++ _1_ ++ 20917 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _1_ вызов: sched_yield
+
+++ _2_ ++ 20920 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _2_ вызов: sched_yield
+
+++ _1_ ++ 20917 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _1_ вызов: sched_yield
+
+++ _3_ ++ 20921 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _3_ вызов: sched_yield
+
+++ _2_ ++ 20920 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _2_ вызов: sched_yield
+
+++ _3_ ++ 20921 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _3_ вызов: sched_yield
+
+++ _1_ ++ 20917 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _1_ вызов: sched_yield
+
+++ _2_ ++ 20920 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _2_ вызов: sched_yield
+
+++ _1_ ++ 20917 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _1_ вызов: sched_yield
+
+++ _3_ ++ 20921 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _3_ вызов: sched_yield
+
+++ _2_ ++ 20920 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _2_ вызов: sched_yield
+
+++ _3_ ++ 20921 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _3_ вызов: sched_yield
+
+++ _2_ ++ 20920 ++ SCHED_RR ++ Приоритет: 10
+
+процесс _2_ вызов: sched_yield
+
+
+
+(2025-04-04 09:50:46) ЗАДАНИЕ 5.5 (Скрипт)
+(2025-04-04 09:50:46) Запуск скрипта ./src/5/5.5/5.5.sh.
+Запуск тестов с разными политиками и одинаковыми приоритетами (10)...
+Запуск src/5/5.5/5.5-other с приоритетом 10
+Запуск src/5/5.5/5.5-fifo с приоритетом 10
+Запуск src/5/5.5/5.5-rr с приоритетом 10
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ other_proc ++ PID: 21094 ++ Политика: SCHED_OTHER ++ Приоритет: 0
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+++ fifo__proc ++ PID: 21093 ++ Политика: SCHED_FIFO ++ Приоритет: 10
+
+
+
+(2025-04-04 09:51:06) ЗАДАНИЕ 5.6 (Скрипт)
+(2025-04-04 09:51:06) Запуск скрипта ./src/5/5.6/5.6.sh.
+-1
+
+
+5.6.1 Запуск потоков с одинаковыми приоритетами, но разными политиками...
+
+Создание 5 потоков...
+
+Запуск созданных потоков...
+
+Поток 0 (SCHED_FIFO) начал работу
+
+Поток 0 (SCHED_FIFO) на шаге 1
+
+Поток 0 (SCHED_FIFO) на шаге 2
+
+Поток 0 (SCHED_FIFO) на шаге 3
+
+Поток 0 (SCHED_FIFO) на шаге 4
+
+Поток 0 (SCHED_FIFO) на шаге 5
+
+Поток 0 (SCHED_FIFO) на шаге 6
+
+Thread 0 completed
+
+Поток 1 (SCHED_FIFO) начал работу
+
+Поток 1 (SCHED_FIFO) на шаге 1
+
+Поток 1 (SCHED_FIFO) на шаге 2
+
+Поток 1 (SCHED_FIFO) на шаге 3
+
+Поток 1 (SCHED_FIFO) на шаге 4
+
+Поток 1 (SCHED_FIFO) на шаге 5
+
+Поток 1 (SCHED_FIFO) на шаге 6
+
+Thread 1 completed
+
+Поток 4 (SCHED_OTHER) начал работу
+
+Поток 4 (SCHED_OTHER) на шаге 1
+
+Поток 2 (SCHED_OTHER) начал работу
+
+Поток 2 (SCHED_OTHER) на шаге 1
+
+Поток 3 (SCHED_OTHER) начал работу
+
+Поток 3 (SCHED_OTHER) на шаге 1
+
+Поток 2 (SCHED_OTHER) на шаге 2
+
+Поток 3 (SCHED_OTHER) на шаге 2
+
+Поток 4 (SCHED_OTHER) на шаге 2
+
+Поток 2 (SCHED_OTHER) на шаге 3
+
+Поток 3 (SCHED_OTHER) на шаге 3
+
+Поток 4 (SCHED_OTHER) на шаге 3
+
+Поток 2 (SCHED_OTHER) на шаге 4
+
+Поток 3 (SCHED_OTHER) на шаге 4
+
+Поток 4 (SCHED_OTHER) на шаге 4
+
+Поток 3 (SCHED_OTHER) на шаге 5
+
+Поток 2 (SCHED_OTHER) на шаге 5
+
+Поток 4 (SCHED_OTHER) на шаге 5
+
+Поток 3 (SCHED_OTHER) на шаге 6
+
+Поток 2 (SCHED_OTHER) на шаге 6
+
+Поток 4 (SCHED_OTHER) на шаге 6
+
+Thread 3 completed
+
+Thread 2 completed
+
+Thread 4 completed
+
+Выполнение завершено
+
+
+5.6.2 Запуск потоков с одинаковыми политиками, но разными приоритетами...
+
+Creating 5 threads with different priorities...
+
+All threads created, releasing barrier...
+
+Поток 4 (SCHED_FIFO) начал работу с приоритетом 90
+
+Поток 4 (SCHED_FIFO) на шаге 1
+
+Поток 4 (SCHED_FIFO) на шаге 2
+
+Поток 4 (SCHED_FIFO) на шаге 3
+
+Поток 4 (SCHED_FIFO) на шаге 4
+
+Поток 4 (SCHED_FIFO) на шаге 5
+
+Поток 4 (SCHED_FIFO) на шаге 6
+
+Thread 4 completed
+
+Поток 3 (SCHED_FIFO) начал работу с приоритетом 80
+
+Поток 3 (SCHED_FIFO) на шаге 1
+
+Поток 3 (SCHED_FIFO) на шаге 2
+
+Поток 3 (SCHED_FIFO) на шаге 3
+
+Поток 3 (SCHED_FIFO) на шаге 4
+
+Поток 3 (SCHED_FIFO) на шаге 5
+
+Поток 3 (SCHED_FIFO) на шаге 6
+
+Thread 3 completed
+
+Поток 2 (SCHED_FIFO) начал работу с приоритетом 70
+
+Поток 2 (SCHED_FIFO) на шаге 1
+
+Поток 2 (SCHED_FIFO) на шаге 2
+
+Поток 2 (SCHED_FIFO) на шаге 3
+
+Поток 2 (SCHED_FIFO) на шаге 4
+
+Поток 2 (SCHED_FIFO) на шаге 5
+
+Поток 2 (SCHED_FIFO) на шаге 6
+
+Thread 2 completed
+
+Поток 1 (SCHED_FIFO) начал работу с приоритетом 60
+
+Поток 1 (SCHED_FIFO) на шаге 1
+
+Поток 1 (SCHED_FIFO) на шаге 2
+
+Поток 1 (SCHED_FIFO) на шаге 3
+
+Поток 1 (SCHED_FIFO) на шаге 4
+
+Поток 1 (SCHED_FIFO) на шаге 5
+
+Поток 1 (SCHED_FIFO) на шаге 6
+
+Thread 1 completed
+
+Поток 0 (SCHED_FIFO) начал работу с приоритетом 50
+
+Поток 0 (SCHED_FIFO) на шаге 1
+
+Поток 0 (SCHED_FIFO) на шаге 2
+
+Поток 0 (SCHED_FIFO) на шаге 3
+
+Поток 0 (SCHED_FIFO) на шаге 4
+
+Поток 0 (SCHED_FIFO) на шаге 5
+
+Поток 0 (SCHED_FIFO) на шаге 6
+
+Thread 0 completed
+
+All threads completed
+
+950000
+
+
+
+(2025-04-04 09:51:37) ЗАДАНИЕ 6 (Скрипт)
+(2025-04-04 09:51:37) Запуск скрипта ./src/6/6.sh.
+Запуск тестов 6 задания...
+
+
+6.1 Наследование файловых дескрипторов
+
+
+
+=== Демонстрация fork() ===
+
+Родитель записал первую строку
+
+Потомок записал данные
+
+Родитель записал финальную строку
+
+Файл закрыт. Результаты сохранены в fork.txt
+
+
+
+=== Демонстрация exec() ===
+
+Родитель записал первую строку
+
+Exec-потомок записал строку
+
+Родитель записал финальную строку
+
+Файл закрыт. Результаты сохранены в exec.txt
+
+
+
+6.2 Наследование параметров планирования
+
+
+
+[ТЕСТ 1] Наследование через fork()
+
+[Родитель (до fork)] PID: 21623
+
+  Политика: RR
+
+  Приоритет: 50
+
+  Nice: 5
+
+--------------------
+
+[Потомок fork()] PID: 21624
+
+  Политика: RR
+
+  Приоритет: 50
+
+  Nice: 5
+
+--------------------
+
+
+
+[ТЕСТ 2] Наследование через exec()
+
+[Родитель (до exec)] PID: 21623
+
+  Политика: FIFO
+
+  Приоритет: 99
+
+  Nice: 15
+
+--------------------
+
+
+
+[Программа потомка] Результаты наследования через exec()
+
+[Потомок exec()] PID: 21625
+
+  Политика: FIFO
+
+  Приоритет: 99
+
+  Nice: 15
+
+--------------------
+
+
+
+6.3 Наследование диспозиции сигналов
+
+
+
+[ТЕСТ 1] Наследование через fork()
+
+[Родитель] PID 21646: Отправляю SIGUSR1 потомку (PID 21647)
+
+[Сигнал] Процесс (PID 21646) получил сигнал 10
+
+[Потомок] PID 21647: Отправляю SIGUSR1 себе
+
+[Сигнал] Процесс (PID 21647) получил сигнал 10
+
+Тест наследования сигналов через fork() завершён.
+
+
+
+[ТЕСТ 3] Наследование через exec()
+
+Родитель отправляет себе сигнал 10
+
+[Сигнал] Процесс (PID 21646) получил сигнал 10
+
+Родитель отправляет себе сигнал 10
+
+[Сигнал] Процесс (PID 21646) получил сигнал 12
+
+
+
+[Программа потомка] Наследование через exec()
+
+Восстановим обработчик для сигнала 10
+
+[Потомок exec()] PID: 21648
+
+  SIG10 (User defined signal 1): пользовательская диспозиция
+
+  SIG11 (Segmentation fault): по умолчанию
+
+  SIG12 (User defined signal 2): по умолчанию
+
+--------------------
+
+Посылаем SIGUSR1 программе...
+
+[Сигнал] Процесс (PID 21648) получил сигнал 10
+
+Посылаем SIGUSR2 программе...
+
+Тест наследования сигналов через exec() завершён.
+
+
+
+1. При fork() обработчики сохраняются
+
+2. При exec() все обработчики сбрасываются в SIG_DFL и их нужно восстанавливать
+
+
+6.4 Наследование через clone
+
+clone() позволяет точно контролировать, какие ресурсы разделяются между процессами, а какие копируются, через флаги
+CLONE_FILES Общие файловые дескрипторы
+CLONE_FS Общая файловая система (корень, CWD, umask)
+CLONE_VM Общее адресное пространство (память)
+CLONE_SIGHAND Общие обработчики сигналов
+
+===============================================================
+
+----------Содержимое файла fork.txt----------
+[Родитель] Первая запись (до fork)
+[Потомок] Запись из дочернего процесса
+[Родитель] Финальная запись (после fork)
+
+----------Содержимое файла exec.txt----------
+[Родитель] Первая запись (до exec)
+[Exec-Потомок] Запись через exec
+[Родитель] Финальная запись (после exec)
+
+
+(2025-04-04 09:51:49) Конец скрипта. Очистка файлов.
+(2025-04-04 09:51:49) ЗАДАНИЕ 0 
+(2025-04-04 09:51:49) >>> root@cpname$ ./cleaner.sh src <<<
+Все скомпилированные файлы удалены.
+
+
+
+Script done on 2025-04-04 09:51:50+03:00 [COMMAND_EXIT_CODE="0"]
